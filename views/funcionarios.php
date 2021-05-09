@@ -16,7 +16,7 @@ $resultPesquisaDepartamentos = mysqli_query($conexao, $sqlPesquisaDepartamentos)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuários | SIGETES</title>
+    <title>Área de funcionários | SIGETES</title>
     <?php require_once "./top-side-bar-menu.php"; ?>
 
 </head>
@@ -27,7 +27,7 @@ $resultPesquisaDepartamentos = mysqli_query($conexao, $sqlPesquisaDepartamentos)
         <section>
             <h1>Registos de funcionários</h1>
             <div class="row">
-                <span class="simple-label">Registar novo funcionário<span data-bs-toggle="modal" data-bs-target="#modalRegistoFuncionario"><i class="fas fa-plus-circle fa-fw fa-lg text-success"></i></span></span>
+                <span class="simple-label"><button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalRegistoFuncionario">Registar novo funcionário<i class="fas fa-plus-circle fa-fw fa-lg text-success"></i></button></span>
                 <div class="col-12">
                     <div id="tabelaFuncionariosLoad"></div>
                 </div>
@@ -42,11 +42,11 @@ $resultPesquisaDepartamentos = mysqli_query($conexao, $sqlPesquisaDepartamentos)
 
     <!-- MODALS -->
 
-    <div class="modal fade" id="modalRegistoFuncionario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalRegistoUsuario" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade " id="modalRegistoFuncionario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalRegistoFuncionario" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title">Registo de usuário de sistema</h2>
+                    <h2 class="modal-title">Registo de funcionário</h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"> </button>
                 </div>
 
@@ -158,7 +158,7 @@ $resultPesquisaDepartamentos = mysqli_query($conexao, $sqlPesquisaDepartamentos)
                         </div>
 
                         <div class="col-4">
-                            <label for="txtDataInicioCarreira" class="form-label">D. inicio carreira</label>
+                            <label for="txtDataInicioCarreira" class="form-label">Inicio carreira</label>
                             <input type="date" name="txtDataInicioCarreira" id="txtDataInicioCarreira" class="form-control">
 
 
@@ -179,9 +179,406 @@ $resultPesquisaDepartamentos = mysqli_query($conexao, $sqlPesquisaDepartamentos)
 
     </div>
 
+    <!-- MODAL EXCLUSAO -->
+
+    <div class="modal fade" id="modalConfirmacaoExclusaoFuncionario" tabindex="-1" aria-labelledby="Exclusao de funcionário" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Deseja excluir?</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem a certeza que deseja mesmo excluir o funcionario?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="btnExcluirFuncionario"><i class="fas fa-trash"></i> Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- MODAL EDICAO FUNCIONARIO -->
+
+    <div class="modal fade" id="modalEdicaoFuncionario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalEdicaoFuncionario" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h2 class="modal-title">Edição de funcionário</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"> </button>
+                </div>
+
+                <div class="modal-body">
+                    <p>Escolha o que pretende fazer:</p>
+                    <h3><i class="fas fa-angle-right"></i> Deseja editar dados pessoais do funcionário? :</h3>
+                    <label for="yesToEditPersonalDataFuncionario" class="form-label">Sim</label> <input type="radio" name="answerToEditPersonalDataFuncionario" id="yesToEditPersonalDataFuncionario">|
+                    <label for="noToEditPersonalDataFuncionario" class="form-label">Não</label> <input type="radio" name="answerToEditPersonalDataFuncionario" id="noToEditPersonalDataFuncionario">
+                    <section id="area-edicao-dados-pessoais-funcionario">
+                        <form id="frmEdicaoFuncionario" class="row" method="POST">
+                            <div class="alert alert-danger alert-dismissible fade show error-fields-registo-funcionario" role="alert"><i class="fas fa-exclamation-triangle"></i> Preencha os campos que são obrigatórios
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="txtIdFuncionarioEdicao" class="form-label">Código</label>
+                                <input type="text" name="txtIdFuncionarioEdicao" id="txtIdFuncionarioEdicao" class="form-control" disabled>
+
+                                <div class="campo-invalido-vazio">
+                                    <i class="fas fa-times"></i>Campo obrigatório!
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="txtNomeFuncionarioEdicao" class="form-label">Nome completo</label>
+                                <input type="text" name="txtNomeFuncionarioEdicao" id="txtNomeFuncionarioEdicao" class="form-control" placeholder="Nome completo do funcionário">
+
+                                <div class="campo-invalido-vazio">
+                                    <i class="fas fa-times"></i>Campo obrigatório!
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <label for="txtDataNascimentoEdicao" class="form-label">D. Nascimento</label>
+                                <input type="date" id="txtDateEdicao" name="txtDateEdicao" class="form-control">
+
+
+                                <div class="campo-invalido-vazio">
+                                    <i class="fas fa-times"></i>Campo obrigatório!
+                                </div>
+
+                            </div>
+
+                            <div class="col-4">
+                                <label for="txtBI" class="form-label">Nº BI</label>
+                                <input type="text" name="txtBIEdicao" id="txtBIEdicao" placeholder="Nº de BI" class="form-control" maxlength="13" minlength="13">
+
+                                <div class="campo-invalido-vazio">
+                                    <i class="fas fa-times"></i>Campo obrigatório!
+                                </div>
+
+                            </div>
+
+                            <div class="col-4">
+                                <label for="txtNUIT" class="form-label">Nº NUIT</label>
+                                <input type="text" name="txtNUITEdicao" id="txtNUITEdicao" placeholder="NUIT" class="form-control" maxlength="9" minlength="9">
+
+
+                                <div class="campo-invalido-vazio">
+                                    <i class="fas fa-times"></i>Campo obrigatório!
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="col-4">
+                                <label for="txtDepartamento" class="form-label">Departamento</label>
+                                <select class="form-control" name="txtDepartamentoEdicao" id="txtDepartamentoEdicao">
+                                    <option selected>Escolha o departamento</option>
+                                    <?php
+                                    $sqlPesquisaDepartamentosEdicao = "SELECT idDepartamento, nomeDepartamento from departamentos";
+                                    $resultPesquisaDepartamentosEdicao = mysqli_query($conexao, $sqlPesquisaDepartamentosEdicao);
+                                    while ($dadosEdicao = mysqli_fetch_row($resultPesquisaDepartamentosEdicao)) : ?>
+
+                                        <option value="<?php echo $dadosEdicao[0]; ?>"> <?php echo $dadosEdicao[1]; ?> </option>
+
+                                    <?php endwhile; ?>
+
+                                </select>
+
+
+                                <div class="campo-invalido-vazio">
+                                    <i class="fas fa-times"></i>Campo obrigatório!
+                                </div>
+                            </div>
+
+
+                            <div class="col-4">
+                                <label for="txtEscalao" class="form-label">Escalão</label>
+                                <input type="text" name="txtEscalaoEdicao" id="txtEscalaoEdicao" class="form-control" disabled readonly>
+                            </div>
+
+                            <div class="col-4">
+                                <label for="txtClasse" class="form-label">Classe</label>
+                                <input type="text" name="txtClasseEdicao" id="txtClasseEdicao" class="form-control" disabled readonly>
+
+                            </div>
+
+                            <div class="col-4">
+                                <label for="txtCargo" class="form-label">Cargo</label>
+                                <input type="text" name="txtCargoEdicao" id="txtCargoEdicao" class="form-control" placeholder="Cargo do funcionário">
+
+
+                                <div class="campo-invalido-vazio">
+                                    <i class="fas fa-times"></i>Campo obrigatório!
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <label for="txtDataInicioCarreira" class="form-label">Inicio carreira</label>
+                                <input type="date" name="txtDataInicioCarreiraEdicao" id="txtDataInicioCarreiraEdicao" class="form-control">
+
+
+                                <div class="campo-invalido-vazio">
+                                    <i class="fas fa-times"></i>Campo obrigatório!
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <button type="submit" class="btn btn-success btn-form" id="btnRegistarFuncionario">Salvar funcionário</button>
+                            </div>
+
+                        </form>
+                    </section>
+                    <hr>
+                    <h3><i class="fas fa-angle-right"></i> Deseja promover do funcionário? :</h3>
+                    <label for="yesToPromoveFuncionario" class="form-label">Sim<input type="radio" name="answerToPromoveFuncionario" id="yesToPromoveFuncionario"></label> |
+                    <label for="noToPromoveFuncionario" class="form-label">Não<input type="radio" name="answerToPromoveFuncionario" id="noToPromoveFuncionario"></label>
+                    <section id="area-promocao-funcionario">
+                        <form id="frmPromocaoFuncionario">
+                            <div class="col-4">
+                                <label for="classeActualFuncionario" class="form-label">Classe actual do funcionario </label>
+                                <input type="text" name="classeActualFuncionario" id="classeActualFuncionario" class="form-control" readonly disabled>
+
+                            </div>
+
+                            <div class="col-4">
+                                <label for="#txtClasseActualizacao" class="form-label">Escolha a nova classe do funcionário </label>
+                                <select id="txtClasseActualizacao" name="txtClasseActualizacao" class="form-control">
+                                    <option selected>Escolha a nova classe</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                </select>
+
+                            </div>
+                            <div class="col-4">
+                                <button class="btn btn-success" id="btnActualizarClasse">
+                                    Actualizar dados
+                                </button>
+                            </div>
+                        </form>
+                    </section>
+
+                    <hr>
+                    <h3><i class="fas fa-angle-right"></i> Deseja progredir o funcionário? :</h3>
+                    <label for="yesToProgredeFuncionario" class="form-label">Sim<input type="radio" name="answerToProgredeFuncionario" id="yesToProgredeFuncionario"></label> |
+                    <label for="noToProgredeFuncionario" class="form-label">Não<input type="radio" name="answerToProgredeFuncionario" id="noToProgredeFuncionario"></label>
+                    <section id="area-progressao-funcionario">
+                        <form id="frmProgressaoFuncionario">
+                            <div class="col-4">
+                                <label for="escalaoActualFuncionario" class="form-label">Escalão actual do funcionario </label>
+                                <input type="text" class="form-control" name="escalaoActualFuncionario" id="escalaoActualFuncionario" readonly disabled>
+
+                            </div>
+
+                            <div class="col-4">
+                                <label for="#txtEscalaoActualizacao" class="form-label">Escolha o novo escalão do funcionário </label>
+                                <select id="txtEscalãoActualizacao" name="txtEscalãoActualizacao" class="form-control">
+                                    <option selected>Escolha o novo escalão</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+
+                            </div>
+                            <div class="col-4">
+                                <button class="btn btn-success" id="btnActualizarEscalao">
+                                    Actualizar dados
+                                </button>
+                            </div>
+                        </form>
+                    </section>
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- MODAL DADOS DETALHADOS -->
+    <div class="modal fade" id="modalMostrarDetalhesFuncionario">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Dados detalhados de funcionário</h2>
+                </div>
+
+                <div class="modal-body">
+                    <p><span class="label-details">Código de registo: </span> <span id="codigoRegistoFuncionario"></span></p>
+                    <p> <span class="label-details">Nome completo: </span> <span id="nomeFuncionario"></span></p>
+                    <p><span class="label-details">Data de nascimento / idade: </span> <span id="dataNascimento"></span> / <span id="idadeFuncionario"></span> anos</p>
+                    <p><span class="label-details">Número de NUIT: </span> <span id="numeroNUITFuncionario"></span></p>
+                    <p><span class="label-details">Número de bilhete de identidade:</span> <span id="numeroBIFuncionario"></span></p>
+                    <p><span class="label-details">Escalão: </span><span id="escalaoFuncionario"></span></p>
+                    <p><span class="label-details">Classe: </span><span id="classeFuncionario"></span></p>
+                    <p><span class="label-details">Cargo: </span><span id="cargoFuncionario"></span></p>
+                    <p><span class="label-details">Departamento a que pertence: </span><span id="departamentoFuncionario"></span></p>
+                    <p><span class="label-details">Data de inicio carreira / anos de trabalho: </span><span id="dataCarreirafuncionario"></span> / <span id="anosServicoFuncionario"></span> anos</p>
+                    <p><span class="label-details">Aposentado?: </span> <span id="isAposentadoFuncionario"></span></p>
+                    <p><span class="label-details">Usuário de sistema?: </span><span id="isUserSystemFuncionario"></span></p>
+                    <p><span class="label-details">Data de registo: </span> <span id="dataRegistoFuncionario"></span></p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        function excluirFuncionario(idFuncionario) {
+            alert("aqui");
+            $('#btnExcluirFuncionario').on('click', function() {
+                $.ajax({
+                    type: "POST",
+                    data: "idFuncionario=" + idFuncionario,
+                    url: "../procedimentos/funcionarios/excluirFuncionario.php",
+                    success: function(r) {
+
+                        if (r == 1) {
+                            $("#btnExcluirFuncionario").prop('disabled', true);
+                            alertify.notify('Funcionario excluído com sucesso ', 'success', 2, function() {
+                                location.reload();
+                            });
+                        } else {
+                            alertify.notify('Erro ao excluir', 'error', 2, function() {
+                                location.reload();
+                            });
+                        }
+                    }
+                })
+
+
+            });
+        };
+
+        function recuperarDadosFuncionario(idFuncionario) {
+            $.ajax({
+                type: "POST",
+                data: "idFuncionario=" + idFuncionario,
+                url: "../procedimentos/funcionarios/recuperarDadosFuncionario.php",
+                success: function(r) {
+
+                    dados = jQuery.parseJSON(r);
+                    console.log(dados['nomeFuncionario']);
+                    $('#txtIdFuncionarioEdicao').val(dados['idFuncionario']);
+                    $('#txtNomeFuncionarioEdicao').val(dados['nomeFuncionario']);
+                    $('#txtDateEdicao').val(dados['dataNascimento']);
+                    $('#txtBIEdicao').val(dados['numeroBI']);
+                    $('#txtNUITEdicao').val(dados['numeroNUIT']);
+                    $('#txtDepartamentoEdicao').val(['idDepartamento']);
+                    $('#txtEscalaoEdicao').val(dados['escalao']);
+                    $('#txtClasseEdicao').val(dados['classe']);
+                    $('#escalaoActualFuncionario').val(dados['escalao']);
+                    $('#classeActualFuncionario').val(dados['classe']);
+                    $('#txtCargoEdicao').val(dados['cargo']);
+                    $('#txtDataInicioCarreiraEdicao').val(dados['dataInicioCarreira']);
+
+                },
+            })
+        }
+
+        function recuperarDadosDetalhadosFuncionario(idFuncionario) {
+            $.ajax({
+                type: "POST",
+                data: "idFuncionario=" + idFuncionario,
+                url: "../procedimentos/funcionarios/recuperarDadosDetalhadosFuncionario.php",
+                success: function(r) {
+
+                    dados = jQuery.parseJSON(r);
+                    console.log(dados);
+                    $('#codigoRegistoFuncionario').text(dados['idFuncionario']);
+                    $('#nomeFuncionario').text(dados['nomeFuncionario']);
+                    $('#dataNascimento').text(dados['dataNascimento']);
+                    $('#idadeFuncionario').text(dados['idadeFuncionario']);
+                    $('#numeroNUITFuncionario').text(dados['numeroNUIT']);
+                    $('#numeroBIFuncionario').text(dados['numeroBI']);
+                    $('#escalaoFuncionario').text(dados['escalao']);
+                    $('#classeFuncionario').text(dados['classe']);
+                    $('#cargoFuncionario').text(dados['cargo']);
+                    $('#dataCarreirafuncionario').text(dados['dataInicioCarreira']);
+                    $('#departamentoFuncionario').text(dados['nomeDepartamento']);
+                    $('#anosServicoFuncionario').text(dados['anosServico']);
+                    $('#isAposentadoFuncionario').text(dados['isAposentado']);
+                    $('#isUserSystemFuncionario').text(dados['isUserSystem']);
+                    $('#dataRegistoFuncionario').text(dados['dataRegisto']);
+
+                },
+            });
+        }
+
+
+
+
         $(document).ready(function() {
             $('#tabelaFuncionariosLoad').load('./funcionarios/tabelaFuncionarios.php');
+
+
+            $('#yesToEditPersonalDataFuncionario').on('change', function() {
+                if ($(this).prop("checked") == true) {
+                    setTimeout(function() {
+                        $('#area-edicao-dados-pessoais-funcionario').fadeIn('fast');
+                    }, 150);
+                }
+            });
+
+            $('#noToEditPersonalDataFuncionario').on('change', function() {
+                setTimeout(function() {
+                    $('#area-edicao-dados-pessoais-funcionario').fadeOut('fast');
+                }, 150);
+            });
+
+            $('#yesToPromoveFuncionario').on('change', function() {
+                if ($(this).prop("checked") == true) {
+                    setTimeout(function() {
+                        $('#area-promocao-funcionario').fadeIn('fast');
+                    }, 150);
+                };
+            });
+
+
+            $('#noToPromoveFuncionario').on('change', function() {
+                if ($(this).prop("checked") == true) {
+                    setTimeout(function() {
+                        $('#area-promocao-funcionario').fadeOut('fast');
+                    }, 150);
+                };
+            });
+
+
+            $('#yesToProgredeFuncionario').on('change', function() {
+                if ($(this).prop("checked") == true) {
+                    setTimeout(function() {
+                        $('#area-progressao-funcionario').fadeIn('fast');
+                    }, 150);
+                };
+            });
+
+
+            $('#noToProgredeFuncionario').on('change', function() {
+                if ($(this).prop("checked") == true) {
+                    setTimeout(function() {
+                        $('#area-progressao-funcionario').fadeOut('fast');
+                    }, 150);
+                };
+            });
+
+
+
+
+
+
+
 
             $('#btnRegistarFuncionario').on('click', function() {
                 $('#frmRegistoFuncionario').on('submit', function(evento) {
@@ -229,13 +626,21 @@ $resultPesquisaDepartamentos = mysqli_query($conexao, $sqlPesquisaDepartamentos)
                         data: dados,
                         url: '../procedimentos/funcionarios/adicionarFuncionario.php',
                         success: function(r) {
-                            alert(r);
+
                             if (r == 1) {
-                                alertify.alert('Funcionário salvo com sucesso', 'Funcionário salvo com sucesso! Registe-o como usuário super-admin do sistema no formulário seguinte', function() {
+                                nomeFuncionario.prop('disabled', true);
+                                dataNascimento.prop('disabled', true);
+                                numeroBI.prop('disabled', true);
+                                numeroNUIT.prop('disabled', true);
+                                departamento.prop('disabled', true);
+                                escalao.prop('disabled', true);
+                                classe.prop('disabled', true);
+                                cargo.prop('disabled', true);
+                                dataInicioCarreira.prop('disabled', true);
+                                $('#btnRegistarFuncionario').prop('disabled', true);
+                                alertify.notify('Funcionário registado com sucesso', 'success', 2, function() {
                                     location.reload();
                                 });
-
-                                // alertify.notify('Funcionário salvo com sucesso. Registe-o como usuário super-Admin', 'custom', 5);
 
                             } else {
                                 alertify.alert('Erro ao salvar o funcionário', 'Não foi possível salvar com sucesso!');

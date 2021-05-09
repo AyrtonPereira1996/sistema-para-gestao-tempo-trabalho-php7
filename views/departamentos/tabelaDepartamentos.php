@@ -24,7 +24,9 @@ $resultadoPesquisaDepartamentos = mysqli_query($conexao, $sqlPesquisarDepartamen
             <td><?php echo $dados[2]; ?></td>
             <td><?php echo $dados[3]; ?></td>
             <td>
-                <button type="button" class="btn btn-info"><i class="fas fa-info"></i></button>
+                <button type="button" class="btn btn-link">
+                    Detalhes
+                </button>
                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEdicaoDepartamento" onclick="recuperarDadosEdicaoDepartamento('<?php echo $dados[0]; ?>')">
                     <i class="fas fa-pencil-alt"></i>
                 </button>

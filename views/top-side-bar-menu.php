@@ -10,7 +10,7 @@
     <div class="topbar-menu">
         <div class="inner-menu-left">
             <div class="imagem-logotipo"></div>
-            <span>dpefz - sigetes</span>
+            <span>spefz - sigetes</span>
         </div>
         <div class="inner-menu-right">
             <ul>

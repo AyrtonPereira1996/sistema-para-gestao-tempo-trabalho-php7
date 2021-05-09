@@ -43,7 +43,7 @@ if (mysqli_fetch_row($result) > 0) {
                 <h2>Autenticação</h2>
                 <div class="input-group mt-4 mb-4">
                     <span class="input-group-text"><i class="fas fa-user .errors-fields"></i></span>
-                    <input type="email" name="username" id="txtUsername" class="form-control" aria-describedby="txtUsername" placeholder="E-mail do usuário">
+                    <input autofocus type="email" name="username" id="txtUsername" class="form-control" aria-describedby="txtUsername" placeholder="E-mail do usuário">
 
                 </div>
                 <div class="input-group">

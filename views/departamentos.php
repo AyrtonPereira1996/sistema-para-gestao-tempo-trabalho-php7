@@ -25,7 +25,7 @@ require_once "../classes/conexao.php";
                 <div class="group-labels text-right">
                     <span class="btn btn-link simple-label">Consultar/registar chefes dos departamentos<spa data-bs-toggle="modal"></span>
 
-                    <span class="simple-label">Registar novo departamento<span data-bs-toggle="modal" data-bs-target="#modalRegistoDepartamento"><i class="fas fa-plus-circle fa-fw fa-lg"></i></span></span>
+                    <span class="simple-label"><button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalRegistoDepartamento">Registar novo departamento<i class="fas fa-plus-circle fa-fw fa-lg"></i></button></span>
                 </div>
 
 
@@ -159,11 +159,11 @@ require_once "../classes/conexao.php";
                     success: function(r) {
                         if (r == 1) {
                             $("#btnExcluir").prop('disabled', true);
-                            alertify.notify('Departamento excluído com sucesso ', 'success', 1.3, function() {
+                            alertify.notify('Departamento excluído com sucesso ', 'success', 2, function() {
                                 location.reload();
                             });
                         } else {
-                            alertify.notify('Erro ao excluir', 'error', 1.3, function() {
+                            alertify.notify('Erro ao excluir', 'error', 2, function() {
                                 location.reload();
                             });
                         };
@@ -223,7 +223,7 @@ require_once "../classes/conexao.php";
                             if (r == 1) {
                                 $("#txtNomeDepartamento").prop('disabled', true);
                                 $("#btnEdicaoDepartamento").prop('disabled', true);
-                                alertify.notify('Departamento registado com sucesso', 'success', 1.3, function() {
+                                alertify.notify('Departamento registado com sucesso', 'success', 2, function() {
                                     location.reload();
                                 });
 
@@ -269,7 +269,7 @@ require_once "../classes/conexao.php";
                             if (r == 1) {
                                 $("#txtIdDepartamentoEdicao").prop('disabled', true);
                                 $("#btnEdicaoDepartamento").prop('disabled', true);
-                                alertify.notify('Departamento editado com sucesso', 'success', 1.3, function() {
+                                alertify.notify('Departamento editado com sucesso', 'success', 2, function() {
                                     location.reload();
                                 });
 

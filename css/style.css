@@ -55,6 +55,7 @@ section#login-area h1 {
   font-weight: bold;
 }
 
+
 form#login-form {
   background-color: #fff !important;
   margin: 0 auto;
@@ -263,7 +264,7 @@ form#login-form .errors-fields {
   position: fixed;
   top: 65px;
   left: 0;
-  width: 350px;
+  width: 295px;
   height: 100%;
   background-color: #d6d6d6;
   transition: all 0.05s 0.01s ease;
@@ -315,8 +316,8 @@ form#login-form .errors-fields {
 
 main.container-fluid {
   margin-top: 65px;
-  width: calc(100% - 350px);
-  margin-left: 350px;
+  width: calc(100% - 295px);
+  margin-left: 295px;
   padding: 12px;
 }
 
@@ -372,15 +373,18 @@ button.form-btn {
 }
 
 .btn-form {
-  margin-top: 53px;
+  margin-top: 39px;
   padding: 4px;
 }
 
-div#inputs-user-data {
+section#inputs-user-data,
+section#area-edicao-dados-pessoais-funcionario,
+section#area-promocao-funcionario,
+section#area-progressao-funcionario {
   display: none;
 }
 
-div#inputs-user-data.active {
+section#inputs-user-data.active {
   display: block;
 }
 
@@ -434,7 +438,7 @@ table.table th {
   font-weight: bold;
 }
 
-.group-labels{
+.group-labels {
   text-align: right;
   display: flex;
   flex-direction: column;
@@ -467,8 +471,31 @@ span.simple-label .svg-inline--fa:hover {
   -webkit-filter: brightness(80%);
 }
 
+.modal-header {
+  padding: 10px !important;
+}
+
+.modal-header h2 {
+  font-size: 1.375em;
+  font-weight: bold;
+}
+
 .modal-body {
-  padding: 8px !important;
+  padding: 25px !important;
+  border: none !important;
+}
+
+.modal-body h3 {
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.modal-body input[type="radio"] {
+  margin: 5px;
+}
+
+.modal-footer {
+  border: none !important;
 }
 
 .modal-body form > div {
@@ -501,6 +528,7 @@ span.card-text {
 }
 
 .card {
+  position: static !important;
   margin-top: 50px;
 }
 
@@ -516,4 +544,22 @@ span.card-text {
 
 button .svg-inline--fa {
   color: #fff !important;
+}
+
+table tbody button.btn-link {
+  margin: -5px !important;
+}
+
+table tbody button.btn-link:focus{
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.modal .modal-dialog .modal-content .modal-body p {
+  padding: 8px;
+}
+
+.modal .modal-dialog .modal-content .modal-body p span.label-details {
+  font-weight: bold;
+  font-size: 1em !important;
 }

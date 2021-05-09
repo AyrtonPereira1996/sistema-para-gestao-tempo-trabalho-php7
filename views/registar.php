@@ -155,7 +155,7 @@ $conexao = $con->conectar();
                 </div>
 
                 <form id="frmRegistoUsuario" class="row" method="POST">
-                    <div id="inputs-user-data">
+                    <section id="inputs-user-data">
                         <div class="alert alert-danger alert-dismissible fade show error-fields-registo-usuario" role="alert"><i class="fas fa-exclamation-triangle"></i> Preencha os campos que são obrigatórios
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
@@ -242,7 +242,7 @@ $conexao = $con->conectar();
                             <button type="submit" class="btn form-btn btn-success" id="btnRegistarUsuario">Salvar usuário</button>
                         </div>
 
-                    </div>
+                    </section>
                 </form>
         </div>
 

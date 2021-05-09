@@ -30,7 +30,7 @@ $resultPesquisarROLE_USERS = mysqli_query($conexao, $sqlPesquisarROLE_USERS);
         <section>
             <h1>Gestão de usuários</h1>
             <div class="row">
-                <span class="add-label">Registar novo usuário<span data-bs-toggle="modal" data-bs-target="#modalRegistoUsuario"><i class="fas fa-plus-circle fa-fw fa-lg text-success"></i></span></span>
+                <span class="simple-label"><button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalRegistoUsuario">Registar novo usuário <i class="fas fa-plus-circle fa-fw fa-lg text-success"></i></button></span>
                 <div class="col-12">
                     <div id="tabelaUsuariosLoad"></div>
                 </div>
@@ -43,7 +43,7 @@ $resultPesquisarROLE_USERS = mysqli_query($conexao, $sqlPesquisarROLE_USERS);
     <!-- MODALS -->
 
     <div class="modal fade" id="modalRegistoUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalRegistoUsuario" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-fullscreen">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="modal-title">Registo de usuário de sistema</h2>
@@ -143,9 +143,196 @@ $resultPesquisarROLE_USERS = mysqli_query($conexao, $sqlPesquisarROLE_USERS);
 
     </div>
 
+    <!-- MODAL EXCLUSAO -->
 
+    <div class="modal fade" id="modalConfirmacaoExclusaoUsuario" tabindex="-1" aria-labelledby="Exclusao de usuário" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Deseja excluir?</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem a certeza que deseja excluir este usuário de sistema?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="btnExcluirUsuario"><i class="fas fa-trash"></i> Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL EDICAO FUNCIONARIO -->
+
+    <div class="modal fade" id="modalEdicaoUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalEdicaoUsuario" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Edição de usuário de sistema</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"> </button>
+                </div>
+
+                <div class="modal-body">
+                    <form id="frmEdicaoUsuario" class="row" method="POST">
+
+                        <div class="alert alert-danger alert-dismissible fade show error-fields-registo-usuario" role="alert"><i class="fas fa-exclamation-triangle"></i> Preencha os campos que são obrigatórios
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+
+                        <div class="alert alert-danger alert-wrong-password" role="alert">
+                            A senhas não coicidem. Volte a introduzir as senhas de acesso do usuário.
+                        </div>
+
+                        <div class="col-12">
+                            <label for="txtNomeFuncionarioUsuarioEdicao" class="form-label">Nome do funcionario </label>
+                            <input type="text" name="txtNomeFuncionarioUsuarioEdicao" id="txtNomeFuncionarioUsuarioEdicao" class="form-control" readonly disabled>
+
+                            <div class="campo-invalido-vazio">
+                                <i class="fas fa-times"></i>Campo obrigatório!
+                            </div>
+                        </div>
+
+
+                        <div class="col-12">
+                            <label for="txtEmailEdicao" class="form-label">Correio electrónico/E-mail</label>
+                            <input type="email" name="txtEmailEdicao" id="txtEmailEdicao" class="form-control" placeholder="E-mail" readonly disabled>
+
+
+                            <div class="campo-invalido-vazio">
+                                <i class="fas fa-times"></i>Campo obrigatório!
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="txtUserRoleEdicao" class="form-label">Tipo de usuário</label>
+                            <select class="form-control" id="txtUserRoleEdicao" name="txtUserRoleEdicao">
+                                <option value="" selected>Escolha o tipo de usuário em relação ao previlégios</option>
+                                <?php
+
+                                while ($dados = mysqli_fetch_row($resultPesquisarROLE_USERS)) : ?>
+
+                                    <option value="<?php echo $dados[0]; ?>"><?php echo $dados[1]; ?></option>
+
+                                <?php endwhile; ?>
+                            </select>
+
+
+                            <div class="campo-invalido-vazio">
+                                <i class="fas fa-times"></i>Campo obrigatório!
+                            </div>
+                        </div>
+
+                        <div class="col-8">
+                            <label for="txtSenhaEdicao" class="form-label">Senha</label>
+                            <input type="password" name="txtSenhaEdicao" id="txtSenhaEdicao" class="form-control" placeholder="Digite uma senha" readonly disabled>
+
+                            <div class="campo-invalido-vazio">
+                                <i class="fas fa-times"></i>Campo obrigatório!
+                            </div>
+                        </div>
+
+                        <div class="col-8">
+                            <button type="submit" class="btn btn-success" id="btnEditarUsuario">Salvar usuário</button>
+                        </div>
+
+
+                    </form>
+                </div>
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL DADOS DETALHADOS -->
+    <div class="modal fade" id="modalMostrarDetalhesUsuario">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Dados detalhados do usuário</h2>
+                </div>
+
+                <div class="modal-body">
+                    <p><span class="label-details">Código de registo: </span> <span id="codigoRegistoUsuario"></span></p>
+                    <p><span class="label-details">Nome completo: </span> <span id="nomeUsuario"></span></p>
+                    <p><span class="label-details">Cargo: </span> <span id="cargoUsuario"></span></p>
+                    <p><span class="label-details">Departamento a que pertence:</span> <span id="departamentoUsuario"></span></p>
+                    <p><span class="label-details">E-mail/correio electrónico(para aceder ao sistema):</span> <span id="emailUsuario"></span></p>
+                    <p><span class="label-details">Tipo de usuário: </span><span id="tipoUsuario"></span></p>
+                    <p><span class="label-details">Data de registo do usuário: </span><span id="dataRegistoUsuario"></span></p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
+        function excluirUsuario(idUsuario) {
+            $('#btnExcluirUsuario').on('click', function() {
+                $.ajax({
+                    type: "POST",
+                    data: "idUsuario=" + idUsuario,
+                    url: "../procedimentos/usuarios/excluirUsuario.php",
+                    success: function(r) {
+                        if (r == 1) {
+                            $("#btnExcluirUsuario").prop('disabled', true);
+                            alertify.notify('Usuário excluído com sucesso ', 'success', 2, function() {
+                                location.reload();
+                            });
+                        } else {
+                            alertify.notify('Erro ao excluir', 'error', 2, function() {
+                                location.reload();
+                            });
+                        }
+                    },
+                });
+
+            });
+
+        }
+
+        function recuperarDadosUsuario(idUsuario) {
+            $.ajax({
+                type: "POST",
+                data: "idUsuario=" + idUsuario,
+                url: "../procedimentos/usuarios/recuperarDadosEdicaoUsuario.php",
+                success: function(r) {
+                    dados = jQuery.parseJSON(r);
+                    console.log(dados['idUsuario']);
+                    $('#txtNomeFuncionarioUsuarioEdicao').val(dados['nomeFuncionario']);
+                    $('#txtEmailEdicao').val(dados['emailUsuario']);
+                    $('#txtSenhaEdicao').val(dados['senhaUsuario']);
+
+                }
+            });
+
+        }
+
+        function recuperarDadosDetalhadosUsuario(idUsuario) {
+            $.ajax({
+                type: "POST",
+                data: "idUsuario=" + idUsuario,
+                url: "../procedimentos/usuarios/recuperarDadosDetalhadosUsuario.php",
+                success: function(r) {
+                    dados = jQuery.parseJSON(r);
+                    console.log(dados['idUsuario']);
+                    $('span#codigoRegistoUsuario').text(dados['idUsuario']);
+                    $('#nomeUsuario').text(dados['nomeUsuario']);
+                    $('#cargoUsuario').text(dados['cargoUsuario']);
+                    $('#departamentoUsuario').text(dados['nomeDepartamento']);
+                    $('#emailUsuario').text(dados['emailUsuario']);
+                    $('#tipoUsuario').text(dados['tipoUsuario']);
+                    $('#dataRegistoUsuario').text(dados['dataRegistoUsuario']);
+                }
+            });
+        }
+
         $(document).ready(function() {
             $('#tabelaUsuariosLoad').load('./usuarios/tabelaUsuarios.php');
 

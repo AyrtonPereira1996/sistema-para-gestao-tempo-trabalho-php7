@@ -33,9 +33,11 @@ $resultPesquisarUsuarios = mysqli_query($conexao, $sqlPesquisarUsuarios);
             <td><?php echo $dados[4]; ?></td>
             <td><?php echo $dados[5]; ?></td>
             <td>
-                <button type="button" class="btn btn-info"><i class="fas fa-question"></i></button>
-                <button type="button" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></button>
-                <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#modalMostrarDetalhesUsuario" onclick="recuperarDadosDetalhadosUsuario('<?php  echo $dados[0]; ?>')">
+                    Detalhes
+                </button>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEdicaoUsuario" onclick="recuperarDadosUsuario('<?php  echo $dados[0]; ?>')" ><i class="fas fa-pencil-alt"></i></button>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalConfirmacaoExclusaoUsuario" onclick="excluirUsuario('<?php echo $dados[0]; ?>')"><i class="fas fa-trash"></i></button>
             </td>
         </tr>
 
