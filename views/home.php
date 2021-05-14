@@ -15,7 +15,7 @@ $sqlNumeroTotalFuncionariosAposentados = "SELECT idfuncionario_aposentado from f
 $resultadoNumeroTotalFuncionariosAposentados = mysqli_query($conexao, $sqlNumeroTotalFuncionariosAposentados);
 $numeroTotalFuncionariosAposentados = mysqli_num_rows($resultadoNumeroTotalFuncionariosAposentados);
 
-$sqlNumeroTotalFuncionariosProgressao = "SELECT idFuncionarios_progressao from funcionarios_progressao_carreiras";
+$sqlNumeroTotalFuncionariosProgressao = "SELECT idFuncionario_progressao from funcionarios_progressao_carreiras";
 $resultadoNumeroTotalFuncionariosProgressao = mysqli_query($conexao, $sqlNumeroTotalFuncionariosProgressao);
 $numeroTotalFuncionariosProgressao = mysqli_num_rows($resultadoNumeroTotalFuncionariosProgressao);
 

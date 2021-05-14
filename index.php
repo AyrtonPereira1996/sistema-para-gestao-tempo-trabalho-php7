@@ -112,7 +112,7 @@ if (mysqli_fetch_row($result) > 0) {
                     data: dados,
                     url: "./procedimentos/login/efectuarLogin.php",
                     success: function(r) {
-                        alert(r);
+                        
                         if (r == 1) {
                             window.location = "./views/home.php"
                         } else {

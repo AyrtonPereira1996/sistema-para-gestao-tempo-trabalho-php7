@@ -82,4 +82,15 @@ class Usuarios
 
         return $dados;
     }
+
+
+    public function editarUsuario($dados) {
+        $con = new Conexao();
+        $conexao = $con->conectar();
+
+        $sql = "UPDATE usuarios set idRole_users = '$dados[1]' where idUsuario = '$dados[0]'";
+        
+        echo mysqli_query($conexao, $sql);
+    }
+
 }

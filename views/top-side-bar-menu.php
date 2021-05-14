@@ -57,21 +57,21 @@
         </li>
 
         <li class="sidebar-menu-item">
-            <a href="">
+            <a href="./progressaoFuncionarios.php">
                 <span class="icon"><i class="fas fa-angle-right"></i></span>
                 <span><span>Consultar</span> progressões</span>
             </a>
         </li>
 
         <li class="sidebar-menu-item">
-            <a href="">
+            <a href="./promocaoFuncionarios.php">
                 <span class="icon"><i class="fas fa-angle-right"></i></span>
                 <span><span>Consultar</span> promoções</span>
             </a>
         </li>
 
         <li class="sidebar-menu-item">
-            <a href="">
+            <a href="./funcionariosAposentaodos.php">
                 <span class="icon"><i class="fas fa-angle-right"></i></span>
                 <span><span>Consultar</span> aposentados</span>
             </a>

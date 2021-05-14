@@ -27,30 +27,36 @@ $resultadoPesquisaFuncionarios = mysqli_query($conexao, $sqlPesquisaFuncionarios
         </thead>
 
         <tbody class="table-striped">
-            <?php while ($dadosPesquisaFuncionarios = mysqli_fetch_row($resultadoPesquisaFuncionarios)) : ?>
-                <tr>
-                    <td><?php echo $dadosPesquisaFuncionarios[0]; ?></td>
-                    <td><?php echo $dadosPesquisaFuncionarios[1]; ?></td>
-                    <td><?php echo $dadosPesquisaFuncionarios[2]; ?></td>
-                    <td><?php echo $dadosPesquisaFuncionarios[3]; ?></td>
-                    <td><?php echo $dadosPesquisaFuncionarios[4]; ?></td>
-                    <td><?php echo (date('Y') - $dadosPesquisaFuncionarios[5]); ?></td>
-                    <td><?php echo (date('Y') - $dadosPesquisaFuncionarios[6]). " anos"; ?></td>
-                    <td><?php echo $dadosPesquisaFuncionarios[7]; ?></td>
-                    <td><?php echo $dadosPesquisaFuncionarios[8]; ?></td>
-                    <td>
-                        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#modalMostrarDetalhesFuncionario" onclick="recuperarDadosDetalhadosFuncionario('<?php  echo $dadosPesquisaFuncionarios[0]; ?>')">
-                            Detalhes
-                        </button>
-                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEdicaoFuncionario" onclick="recuperarDadosFuncionario('<?php  echo $dadosPesquisaFuncionarios[0]; ?>')">
-                            <i class="fas fa-pencil-alt"></i>
-                        </button>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalConfirmacaoExclusaoFuncionario" onclick="excluirFuncionario('<?php  echo $dadosPesquisaFuncionarios[0]; ?>')">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-            <?php endwhile; ?>
+            <?php
+            if ($dadosPesquisaFuncionarios = mysqli_fetch_row($resultadoPesquisaFuncionarios)) {
+                while ($dadosPesquisaFuncionarios = mysqli_fetch_row($resultadoPesquisaFuncionarios)) : ?>
+                    <tr>
+                        <td><?php echo $dadosPesquisaFuncionarios[0]; ?></td>
+                        <td><?php echo $dadosPesquisaFuncionarios[1]; ?></td>
+                        <td><?php echo $dadosPesquisaFuncionarios[2]; ?></td>
+                        <td><?php echo $dadosPesquisaFuncionarios[3]; ?></td>
+                        <td><?php echo $dadosPesquisaFuncionarios[4]; ?></td>
+                        <td><?php echo (date('Y') - $dadosPesquisaFuncionarios[5]); ?></td>
+                        <td><?php echo (date('Y') - $dadosPesquisaFuncionarios[6]) . " anos"; ?></td>
+                        <td><?php echo $dadosPesquisaFuncionarios[7]; ?></td>
+                        <td><?php echo $dadosPesquisaFuncionarios[8]; ?></td>
+                        <td>
+                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#modalMostrarDetalhesFuncionario" onclick="recuperarDadosDetalhadosFuncionario('<?php echo $dadosPesquisaFuncionarios[0]; ?>')">
+                                Detalhes
+                            </button>
+                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEdicaoFuncionario" onclick="recuperarDadosFuncionario('<?php echo $dadosPesquisaFuncionarios[0]; ?>')">
+                                <i class="fas fa-pencil-alt"></i>
+                            </button>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalConfirmacaoExclusaoFuncionario" onclick="excluirFuncionario('<?php echo $dadosPesquisaFuncionarios[0]; ?>')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+            <?php endwhile;
+            } else {
+                echo "<caption>Sem registos</caption>";
+            };
+            ?>
         </tbody>
     </table>
 </div>

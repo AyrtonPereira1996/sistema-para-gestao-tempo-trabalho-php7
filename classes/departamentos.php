@@ -2,6 +2,7 @@
 
 class Departamentos
 {
+    // INSERCAO DE NOVO DEPARTAMENTO
 
     public function adicionarDepartamento($dados)
     {
@@ -13,6 +14,8 @@ class Departamentos
         return mysqli_query($conexao, $sql);
     }
 
+    // EXCLUSAO DE REGISTO DE DEPARTAMENTO
+
     public function excluirDepartamento($idDepartamento)
     {
         $con = new Conexao();
@@ -22,6 +25,8 @@ class Departamentos
 
         echo mysqli_query($conexao, $sql);
     }
+
+    // RECUPERACAO DE DADOS PARA EDICAO DE REGISTO DE DEPARTAMENTO
 
     public function recuperarDadosEdicaoDepartamento($idDepartamento)
     {
@@ -41,12 +46,34 @@ class Departamentos
         return $dados;
     }
 
+    // EDICAO DE REGISTO DE DEPARTAMENTO
+     
     public function editarDepartamento($dados){
         $con = new Conexao();
         $conexao = $con->conectar();
 
         $sql = "UPDATE departamentos set nomeDepartamento = '$dados[1]' where idDepartamento = '$dados[0]'";
         return mysqli_query($conexao, $sql);
+    }
+
+    // EXCLUSAO DE REGISTO DEPARTAMENTO ASSOCIADO A UM DEPARTAMENTO
+
+    public function adicionarChefeDepartamento($dados){
+        $con = new Conexao();
+        $conexao = $con->conectar();
+
+        $sql = "INSERT into funcionarios_chefes_departamentos (idFuncionarios_chefes_departamentos, idFuncionario, idDepartamento, dataRegisto) values (default, '$dados[0]', '$dados[1]', now())";
+        return mysqli_query($conexao, $sql);
+    }
+
+    // EXCLUSAO DE DEPARTAMENTO ASSOCIADO A UM CHEFIA
+    public function excluirChefeDepartamento($idChefiaDepartamento) {
+        $con = new Conexao();
+        $conexao = $con->conectar();
+
+        $sql = "DELETE FROM funcionarios_chefes_departamentos WHERE idFuncionarios_chefes_departamentos = '$idChefiaDepartamento'";
+        
+        echo mysqli_query($conexao, $sql);
     }
 
 }

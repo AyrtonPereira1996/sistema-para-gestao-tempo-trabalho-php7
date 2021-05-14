@@ -23,7 +23,7 @@ require_once "../classes/conexao.php";
             <div class="row">
 
                 <div class="group-labels text-right">
-                    <span class="btn btn-link simple-label">Consultar/registar chefes dos departamentos<spa data-bs-toggle="modal"></span>
+                    <a href="./chefiasDepartamentos.php"><span class="btn btn-link simple-label">Consultar/registar chefes dos departamentos</span></a>
 
                     <span class="simple-label"><button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalRegistoDepartamento">Registar novo departamento<i class="fas fa-plus-circle fa-fw fa-lg"></i></button></span>
                 </div>
@@ -45,7 +45,7 @@ require_once "../classes/conexao.php";
     <!-- MODALS -->
 
     <!-- MODAL INSERCAO DEPARTAMENTO -->
-    <div class="modal fade" id="modalRegistoDepartamento" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalRegistoUsuario" aria-hidden="true">
+    <div class="modal fade" id="modalRegistoDepartamento" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalRegistoDepartamento" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -189,6 +189,11 @@ require_once "../classes/conexao.php";
         };
 
         $(document).ready(function() {
+
+
+
+            $('#tabelaChefesDepartamentosLoad').DataTable();
+
             $('#tabelaDepartamentosLoad').load('./departamentos/tabelaDepartamentos.php');
 
             $('#btnRegistarDepartamento').on('click', function() {
@@ -203,7 +208,7 @@ require_once "../classes/conexao.php";
                     if (field.val() == "") {
                         $('.error-fields-registo-funcionario').fadeIn('fast');
                         field.css('border', 'solid 2px #dc3545');
-                        $('#frmRegistoFuncionario .campo-invalido-vazio').fadeIn('slow');
+                        $('#frmRegistoDepartamento .campo-invalido-vazio').fadeIn('slow');
                         return false;
                     } else {
                         field.css('border', 'solid 2px #198754');
@@ -222,7 +227,7 @@ require_once "../classes/conexao.php";
 
                             if (r == 1) {
                                 $("#txtNomeDepartamento").prop('disabled', true);
-                                $("#btnEdicaoDepartamento").prop('disabled', true);
+                                $("#btnRegistarDepartamento").prop('disabled', true);
                                 alertify.notify('Departamento registado com sucesso', 'success', 2, function() {
                                     location.reload();
                                 });

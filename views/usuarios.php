@@ -9,8 +9,23 @@ $conexao = $con->conectar();
 $sqlPesquisarFuncionarios = "SELECT f.idFuncionario, f.nomeFuncionario, d.nomeDepartamento from funcionarios as f join departamentos as d on f.idDepartamento = d.idDepartamento";
 $resultPesquisarFuncionarios = mysqli_query($conexao, $sqlPesquisarFuncionarios);
 
-$sqlPesquisarROLE_USERS = "SELECT idROLE_USER, tipoROLE_USER from ROLE_USERS;";
+$sqlPesquisarROLE_USERS = "SELECT idROLE_USER, tipoROLE_USER from ROLE_USERS";
 $resultPesquisarROLE_USERS = mysqli_query($conexao, $sqlPesquisarROLE_USERS);
+
+
+function filtrar_roleUsers($conexao)
+{
+    $output = '';
+
+    $sqlPesquisarRoleUsersEdicao = "SELECT idROLE_USER, tipoROLE_USER from ROLE_USERS";
+    $resultPesquisarRoleUsersEdicao = mysqli_query($conexao, $sqlPesquisarRoleUsersEdicao);
+
+    while ($dadosPesquisaRoleUsersEdicao = mysqli_fetch_array($resultPesquisarRoleUsersEdicao)) {
+        $output .= '<option value="' . $dadosPesquisaRoleUsersEdicao["idROLE_USER"] . '">' . $dadosPesquisaRoleUsersEdicao["tipoROLE_USER"] . '</option>';
+    }
+
+    return $output;
+}
 
 ?>
 <!DOCTYPE html>
@@ -184,6 +199,8 @@ $resultPesquisarROLE_USERS = mysqli_query($conexao, $sqlPesquisarROLE_USERS);
                             A senhas não coicidem. Volte a introduzir as senhas de acesso do usuário.
                         </div>
 
+
+
                         <div class="col-12">
                             <label for="txtNomeFuncionarioUsuarioEdicao" class="form-label">Nome do funcionario </label>
                             <input type="text" name="txtNomeFuncionarioUsuarioEdicao" id="txtNomeFuncionarioUsuarioEdicao" class="form-control" readonly disabled>
@@ -207,14 +224,12 @@ $resultPesquisarROLE_USERS = mysqli_query($conexao, $sqlPesquisarROLE_USERS);
                         <div class="col-12">
                             <label for="txtUserRoleEdicao" class="form-label">Tipo de usuário</label>
                             <select class="form-control" id="txtUserRoleEdicao" name="txtUserRoleEdicao">
-                                <option value="" selected>Escolha o tipo de usuário em relação ao previlégios</option>
+                                <option value="">Escolha o tipo de usuário</option>
                                 <?php
+                                
+                                echo filtrar_roleUsers($conexao);
+                                ?>
 
-                                while ($dados = mysqli_fetch_row($resultPesquisarROLE_USERS)) : ?>
-
-                                    <option value="<?php echo $dados[0]; ?>"><?php echo $dados[1]; ?></option>
-
-                                <?php endwhile; ?>
                             </select>
 
 
@@ -231,7 +246,7 @@ $resultPesquisarROLE_USERS = mysqli_query($conexao, $sqlPesquisarROLE_USERS);
                                 <i class="fas fa-times"></i>Campo obrigatório!
                             </div>
                         </div>
-
+                        <input type="hidden" name="txtIdUsuario" id="txtIdUsuario" readonly>
                         <div class="col-8">
                             <button type="submit" class="btn btn-success" id="btnEditarUsuario">Salvar usuário</button>
                         </div>
@@ -304,12 +319,15 @@ $resultPesquisarROLE_USERS = mysqli_query($conexao, $sqlPesquisarROLE_USERS);
                 url: "../procedimentos/usuarios/recuperarDadosEdicaoUsuario.php",
                 success: function(r) {
                     dados = jQuery.parseJSON(r);
-                    console.log(dados['idUsuario']);
+
+                    $('#txtIdUsuario').val(dados['idUsuario']);
                     $('#txtNomeFuncionarioUsuarioEdicao').val(dados['nomeFuncionario']);
+                    $('#optionROLE_USER').val(dados['idRoleUsers']);
                     $('#txtEmailEdicao').val(dados['emailUsuario']);
                     $('#txtSenhaEdicao').val(dados['senhaUsuario']);
 
                 }
+
             });
 
         }
@@ -353,7 +371,6 @@ $resultPesquisarROLE_USERS = mysqli_query($conexao, $sqlPesquisarROLE_USERS);
                     if (field.val() == "") {
                         $('.error-fields-registo-usuario').fadeIn('fast');
                         field.css('border', 'solid 2px #dc3545');
-                        $('#inputs-user-data .campo-invalido-vazio').fadeIn('slow');
                         return false;
                     } else {
                         if (isNotDifferentPassword(senha, confirmacaoSenha)) {
@@ -404,6 +421,30 @@ $resultPesquisarROLE_USERS = mysqli_query($conexao, $sqlPesquisarROLE_USERS);
                 };
 
             });
+
+            $('#btnEditarUsuario').on('click', function() {
+                $('#frmEdicaoUsuario').on('submit', function(evento) {
+                    evento.preventDefault();
+                });
+
+                dados = $('#frmEdicaoUsuario').serialize();
+                console.log(dados);
+
+                $.ajax({
+                    type: "POST",
+                    data: dados,
+                    url: "../procedimentos/usuarios/editarUsuario.php",
+                    success: function(r) {
+                        if (r == 1) {
+                            alert("Editado com sucesso");
+                        } else {
+                            alert("Erro ao editar");
+                        }
+                    }
+                });
+            });
+
+
         });
     </script>
 
