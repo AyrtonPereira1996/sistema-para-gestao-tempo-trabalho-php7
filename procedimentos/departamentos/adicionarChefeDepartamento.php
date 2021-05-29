@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 1);
 require_once "../../classes/conexao.php";
 require_once "../../classes/departamentos.php";
 

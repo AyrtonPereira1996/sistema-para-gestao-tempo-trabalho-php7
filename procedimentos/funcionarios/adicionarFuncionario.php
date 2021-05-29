@@ -14,12 +14,13 @@ $classe = $_POST['txtClasse'];
 $cargo = $_POST['txtCargo'];
 $dataInicioCarreiraFormulario = $_POST['txtDataInicioCarreira'];
 $dataRegisto = date("Y-m-d");
+$generoFuncionario = $_POST['txtGeneroFuncionario'];
 
 $dataNascimento = implode("-", array_reverse(explode("/", $dataNascimentoFormulario)));
 $dataInicioCarreira = implode("-", array_reverse(explode("/", $dataInicioCarreiraFormulario)));
 
 
 
-$dados = array($departamento, $nomeFuncionario, $dataNascimento, $nuit, $bi, $escalao, $classe, $cargo, $dataInicioCarreira, $dataRegisto);
+$dados = array($departamento, $nomeFuncionario, $dataNascimento, $nuit, $bi, $escalao, $classe, $cargo, $dataInicioCarreira, $dataRegisto, $generoFuncionario);
 
 echo $obj->adicionarFuncionario($dados);

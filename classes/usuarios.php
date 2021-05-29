@@ -45,7 +45,8 @@ class Usuarios
         $con = new Conexao();
         $conexao = $con->conectar();
 
-        $sql = "SELECT u.idUsuario, f.nomeFuncionario, u.email, u.senha, r.idROLE_USER, r.tipoROLE_USER from usuarios as u inner join ROLE_USERS as r on u.idRole_Users = r.idROLE_USER INNER JOIN funcionarios as f on u.idFuncionario = f.idFuncionario where u.idUsuario = '$idUsuario'";
+        $sql = "SELECT u.idUsuario, f.nomeFuncionario, u.email, r.idROLE_USER, r.tipoROLE_USER from usuarios as u inner join ROLE_USERS as r on u.idRole_Users = r.idROLE_USER INNER JOIN funcionarios as f on u.idFuncionario = f.idFuncionario where u.idUsuario = '$idUsuario'";
+        
         $result = mysqli_query($conexao, $sql);
 
         $resultItem = mysqli_fetch_row($result);
@@ -54,9 +55,8 @@ class Usuarios
             "idUsuario" => $resultItem[0],
             "nomeFuncionario" => $resultItem[1],
             "emailUsuario" => $resultItem[2],
-            "senhaUsuario" => $resultItem[3],
-            "idRoleUsers" => $resultItem[4],
-            "tipoRole" => $resultItem[5]
+            "idRoleUsers" => $resultItem[3],
+            "tipoRole" => $resultItem[4]
         );
         return $dados;
     }

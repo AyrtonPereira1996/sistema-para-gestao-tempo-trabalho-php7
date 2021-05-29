@@ -28,13 +28,45 @@ $resultPesquisaFuncionarios = mysqli_query($conexao, $sqlPesquisaFuncionarios);
     <main class="container-fluid">
         <section>
             <h1>Registos de chefes de departamentos</h1>
-            <div class="row">
 
+            <div class="row">
                 <div class="group-labels text-right">
                     <a href="./departamentos.php"><span class="btn btn-link simple-label">Consultar/registar departamentos<spa data-bs-toggle="modal"></span></a>
 
                     <span class="simple-label"><button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalRegistoChefeDepartamento">Associar novo chefe<i class="fas fa-plus-circle fa-fw fa-lg"></i></button></span>
                 </div>
+
+                <form id="frmPesquisaFuncionario" class="frm-pesquisa">
+
+                    <span>Pesquisa:</span>
+
+
+                    <select name="" id="itemsPesquisa" class="form-select ">
+                        <option value="">Escolha o campo</option>
+                        <option value="codigoRegisto">Código de registo</option>
+                        <option value="nomeFuncionario">Nome do funcionário</option>
+                        <option value="cargo">Cargo que assume</option>
+                        <option value="escalao">Escalão</option>
+                        <option value="classe">Classe</option>
+                        <option value="anosServico">Anos de serviço</option>
+                        <option value="idade">Idade</option>
+                        <option value="departamento">Departamento</option>
+                        <option value="dataRegisto">Data de registo (ano-mês-dia)</option>
+                    </select>
+
+
+
+                    <input type="search" name="" id="" class="form-control" placeholder="Pesquise...">
+                    <button type="submit" class="btn btn-outline-secondary">Pesquisar</button>
+
+
+                </form>
+
+            </div>
+
+
+            <div class="row">
+
 
 
 
@@ -84,8 +116,8 @@ $resultPesquisaFuncionarios = mysqli_query($conexao, $sqlPesquisaFuncionarios);
 
                         <div class="col-12">
                             <label for="txtNomeChefe" class="form-label">Funcionário a nomear</label>
-                            <select name="txtNomeChefe" id="txtNomeChefe" class="form-control" onmousedown="document.querySelector('.item-not-to-select').remove()">
-                                <option selected class="item-not-to-select">Selecione o funcionário</option>
+                            <select name="txtNomeChefe" id="txtNomeChefe" class="form-control">
+                                <option value="">Selecione o funcionário</option>
                                 <?php while ($dadosFuncionarios = mysqli_fetch_row($resultPesquisaFuncionarios)) : ?>
                                     <option value="<?php echo ($dadosFuncionarios[0]); ?>"> <?php echo ($dadosFuncionarios[1]); ?> -> Departamento: <?php echo ($dadosFuncionarios[2]); ?> </option>
                                 <?php endwhile; ?>
@@ -110,7 +142,67 @@ $resultPesquisaFuncionarios = mysqli_query($conexao, $sqlPesquisaFuncionarios);
     </div>
 
 
-    <!-- MODAL EXCLUSAO DEPARTAMENTO -->
+    <!-- MODAL EDICAO DEPARTAMENTO -->
+    <div class="modal fade" id="modalEditarChefeDepartamento" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalEditarChefeDepartamento" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Edição de chefe de departamento</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"> </button>
+                </div>
+
+                <div class="modal-body">
+                    <p>Escolha o que pretende fazer:</p>
+                    <h3><i class="fas fa-angle-right"></i> Tem a certeza que deseja desassociar o cargo de chefia ao funcionário actual? :</h3>
+
+                    <div class="form-check">
+                        <label for="yesToDesassociarChefeDepartamento" class="form-label">Sim <input type="radio" name="answerToDesassociarChefeDepartamento" id="yesToDesassociarChefeDepartamento"></label>|
+                        <label for="noToDesassociarChefeDepartamento" class="form-label">Não <input type="radio" name="answerToDesassociarChefeDepartamento" id="noToDesassociarChefeDepartamento"></label>
+                    </div>
+
+                    <section id="area-edicao-chefe-departamento">
+                        <form method="post" id="frmEdicaoChefeDepartamento">
+                            <p><span class="label-details">Dados anteriores: </span></p>
+                            <p><span class="label-details-items">Departamento em questão: </span><span id="departamentoActual"></span></p>
+                            <p><span class="label-details-items">Funcionário como chefia: </span><span id="chefeActual"></span></p>
+                            <p><span class="label-details-items">Tomada de posse em: </span><span id="dataTomadaPosse"></span></p>
+
+
+                            <p><span class="label-details">Escolha o novo funcionário para associar ao cargo de chefia departamento em questão: </span></p>
+                            <div class="col-8">
+                                <label for="txtFuncionarioChefia" class="form-label">Funcionário para chefia </label>
+                                <select name="txtFuncionarioChefia" id="txtFuncionarioChefia" class="form-control">
+                                    <option value="">Selecione o novo funcionário</option>
+                                    <?php
+                                    $sqlPesquisaFuncionarios = "SELECT f.idFuncionario, f.nomeFuncionario, d.nomeDepartamento FROM funcionarios as f INNER JOIN departamentos as d on f.idDepartamento = d.idDepartamento";
+                                    $resultPesquisaFuncionarios = mysqli_query($conexao, $sqlPesquisaFuncionarios);
+                                    while ($dadosResultadoFuncionarios = mysqli_fetch_row($resultPesquisaFuncionarios)) : ?>
+                                        <option value="<?php echo $dadosResultadoFuncionarios[0]; ?>"><?php echo $dadosResultadoFuncionarios[1] . " pertence a " . $dadosResultadoFuncionarios[2]; ?> </option>
+                                    <?php endwhile; ?>
+                                </select>
+
+                                <div class="campo-invalido-vazio">
+                                    <i class="fas fa-times"></i>Campo obrigatório!
+                                </div>
+
+                                <input type="hidden" name="txtIdChefiaDepartamento" id="txtIdChefiaDepartamentos">
+                            </div>
+
+                            <div class="col-8">
+                                <button type="submit" class="form-control btn btn-success" id="btnEditarChefeDepartamento">
+                                    Actualizar dados
+                                </button>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
 
     <!-- MODAL EXCLUSAO DEPARTAMENTO -->
 
@@ -161,15 +253,60 @@ $resultPesquisaFuncionarios = mysqli_query($conexao, $sqlPesquisaFuncionarios);
             });
         }
 
+        function recuperarDadosEdicaoChefiaDepartamento(idChefiaDepartamento) {
 
-
-
+            $.ajax({
+                type: "POST",
+                data: "idChefiaDepartamento=" + idChefiaDepartamento,
+                url: "../procedimentos/departamentos/recuperarDadosEdicaoChefiaDepartamento.php",
+                success: function(r) {
+                    dados = jQuery.parseJSON(r);
+                    $('#departamentoActual').text(dados['nomeDepartamento']);
+                    $('#chefeActual').text(dados['nomeFuncionario']);
+                    $('#dataTomadaPosse').text(dados['dataTomadaPosse']);
+                    $('#txtIdChefiaDepartamentos').val(dados['idChefiaDepartamento']);
+                }
+            });
+        }
 
 
         $(document).ready(function() {
-         
+
             $('#tabelaChefesDepartamentosLoad').load('./departamentos/tabelaChefiasDepartamento.php');
-           
+
+
+            $('#yesToDesassociarChefeDepartamento').on('change', function() {
+                if ($(this).prop("checked") == true) {
+                    setTimeout(function() {
+                        $('#area-edicao-chefe-departamento').fadeIn('fast');
+                    }, 150);
+                };
+            });
+
+
+            $('#noToDesassociarChefeDepartamento').on('change', function() {
+                if ($(this).prop("checked") == true) {
+                    setTimeout(function() {
+                        $('#area-edicao-chefe-departamento').fadeOut('fast');
+                    }, 150)
+
+                };
+            });
+
+            function isNotEmpty(field) {
+                if (field.val() == "") {
+                    $('.error-fields-registo-funcionario').fadeIn('fast');
+                    field.css('border', 'solid 2px #dc3545');
+                    $('#frmRegistoChefeDepartamento .campo-invalido-vazio').fadeIn('slow');
+                    return false;
+                } else {
+                    field.css('border', 'solid 2px #198754');
+                    return true;
+                }
+            };
+
+
+
             $('#btnRegistarChefeDepartamento').on('click', function() {
                 $('#frmRegistoChefeDepartamento').on('submit', function(evento) {
                     evento.preventDefault();
@@ -178,27 +315,15 @@ $resultPesquisaFuncionarios = mysqli_query($conexao, $sqlPesquisaFuncionarios);
                 nomeDepartamento = $('#txtNomeDepartamento');
                 nomeFuncionarioChefe = $('#txtNomeChefe');
 
-
-                function isNotEmpty(field) {
-                    if (field.val() == "") {
-                        $('.error-fields-registo-funcionario').fadeIn('fast');
-                        field.css('border', 'solid 2px #dc3545');
-                        $('#frmRegistoChefeDepartamento .campo-invalido-vazio').fadeIn('slow');
-                        return false;
-                    } else {
-                        field.css('border', 'solid 2px #198754');
-                        return true;
-                    }
-                };
-
                 if (isNotEmpty(nomeDepartamento) && isNotEmpty(nomeFuncionarioChefe)) {
                     dados = $('#frmRegistoChefeDepartamento').serialize();
+                    console.log(dados);
                     $.ajax({
                         type: "POST",
                         data: dados,
                         url: "../procedimentos/departamentos/adicionarChefeDepartamento.php",
                         success: function(r) {
-                            
+
                             if (r == 1) {
                                 $("#txtNomeDepartamento").prop('disabled', true);
                                 $("#txtNomeChefe").prop('disabled', true);
@@ -215,9 +340,59 @@ $resultPesquisaFuncionarios = mysqli_query($conexao, $sqlPesquisaFuncionarios);
                     });
                 }
 
+            });
+
+
+            $('#btnEditarChefeDepartamento').on('click', function() {
+                $('#frmEdicaoChefeDepartamento').on('submit', function(evento) {
+                    evento.preventDefault();
+                });
+
+                function isNotEmpty(field) {
+                    if (field.val() == "") {
+                        $('.error-fields-registo-funcionario').fadeIn('fast');
+                        field.css('border', 'solid 2px #dc3545');
+                        $('#frmEdicaoChefeDepartamento .campo-invalido-vazio').fadeIn('slow');
+                        return false;
+                    } else {
+                        field.css('border', 'solid 2px #198754');
+                        return true;
+                    }
+                };
+
+                funcionarioChefia = $('#txtFuncionarioChefia');
+
+                dados = $('#frmEdicaoChefeDepartamento').serialize();
+
+
+
+                if (isNotEmpty(funcionarioChefia)) {
+                    $.ajax({
+                        type: "POST",
+                        data: dados,
+                        url: "../procedimentos/departamentos/editarChefiaDepartamento.php",
+                        success: function(r) {
+                            alert(r);
+                            if (r == 1) {
+                                alert('successo');
+                            } else {
+                                alert('Erro');
+                            };
+                        }
+                    });
+                };
 
 
             });
+
+
+
+
+
+
+
+
+
 
         });
     </script>

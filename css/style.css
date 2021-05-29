@@ -95,6 +95,14 @@ form#login-form .errors-fields {
   border: solid 2px #dc3545;
 }
 
+.form-check.form-check-inline.form-check-genero {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 27px !important;
+}
+
 .top-navbar {
   background-color: #a0a0a0;
   height: 65px;
@@ -360,6 +368,14 @@ body.active .top-navbar .hamburguer .hamburguer-inner div.two {
   font-weight: bold;
 }
 
+.form-label span{
+  font-weight: normal !important;
+}
+
+.label-details-items{
+  margin-left: ;
+}
+
 form h2,
 section h2 {
   margin-top: 10px !important;
@@ -375,15 +391,19 @@ button.form-btn {
   top: 33px;
 }
 
-.btn-form {
-  margin-top: 39px;
-  padding: 4px;
+
+button#btnEditarUsuario {
+  margin-top: 10px;
 }
 
 section#inputs-user-data,
 section#area-edicao-dados-pessoais-funcionario,
 section#area-promocao-funcionario,
-section#area-progressao-funcionario {
+section#area-progressao-funcionario,
+section#area-edicao-user-role,
+section#area-aposentar-funcionario,
+section#area-edicao-chefe-departamento
+{
   display: none;
 }
 
@@ -566,3 +586,37 @@ table tbody button.btn-link:focus {
   font-weight: bold;
   font-size: 1em !important;
 }
+
+form.frm-pesquisa{
+  width: calc(287px - 262px);
+  margin-left: 262px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+body.active .frm-pesquisa {
+  width: calc(415px - 132px);
+  margin-left: 132px;
+}
+
+.frm-pesquisa span {
+  font-weight: bold;
+}
+
+.frm-pesquisa select {
+  width: 161px;
+  margin: 0px 10px;
+}
+
+.frm-pesquisa input.form-control {
+  width: 192px;
+  margin-right: 10px;
+}
+
+.form-check-inline{
+  display: flex !important;
+  align-items: center !important;
+}
+
+

@@ -20,8 +20,8 @@ require_once "../classes/conexao.php";
     <main class="container-fluid">
         <section>
             <h1>Registos de departamentos</h1>
-            <div class="row">
 
+            <div class="row">
                 <div class="group-labels text-right">
                     <a href="./chefiasDepartamentos.php"><span class="btn btn-link simple-label">Consultar/registar chefes dos departamentos</span></a>
 
@@ -29,7 +29,38 @@ require_once "../classes/conexao.php";
                 </div>
 
 
+                <form id="frmPesquisaFuncionario" class="frm-pesquisa">
 
+
+                    <span>Pesquisa:</span>
+
+
+                    <select name="" id="itemsPesquisa" class="form-select ">
+                        <option value="">Escolha o campo</option>
+                        <option value="codigoRegisto">Código de registo</option>
+                        <option value="nomeFuncionario">Nome do funcionário</option>
+                        <option value="cargo">Cargo que assume</option>
+                        <option value="escalao">Escalão</option>
+                        <option value="classe">Classe</option>
+                        <option value="anosServico">Anos de serviço</option>
+                        <option value="idade">Idade</option>
+                        <option value="departamento">Departamento</option>
+                        <option value="dataRegisto">Data de registo (ano-mês-dia)</option>
+                    </select>
+
+
+
+                    <input type="search" name="" id="" class="form-control" placeholder="Pesquise...">
+                    <button type="submit" class="btn btn-outline-secondary">Pesquisar</button>
+
+
+                </form>
+
+            </div>
+
+
+
+            <div class="row">
                 <div class="col-12">
                     <div id="tabelaDepartamentosLoad"></div>
                 </div>
@@ -148,6 +179,30 @@ require_once "../classes/conexao.php";
 
     </div>
 
+    <!-- MODAL DADOS DETALHADOS -->
+    <div class="modal fade" id="modalMostrarDetalhesDepartamento">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Dados detalhados de funcionário</h2>
+                </div>
+
+                <div class="modal-body">
+                    <p><span class="label-details">Código de registo: </span> <span id="codigoRegistoDepartamento"></span></p>
+                    <p> <span class="label-details">Nome do departamento: </span> <span id="nomeDepartamento"></span></p>
+                    <p><span class="label-details">Chefe do departamento: </span> <span id="ChefeDepartamento"></span> </p>
+                    <p><span class="label-details">Número total de funcionários registados: </span> <span id="numeroTotalfuncionarios"></span></p>
+                    <p><span class="label-details">Data de registo:</span> <span id="dataRegisto"></span></p>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <script>
         function excluirDepartamento(idDepartemento) {
@@ -187,6 +242,23 @@ require_once "../classes/conexao.php";
                 }
             });
         };
+
+        function recuperarDadosDepartamentoDetalhados(idDepartamento) {
+            $.ajax({
+                type: "POST",
+                data: "idDepartamento=" + idDepartamento,
+                url: "../procedimentos/departamentos/recuperarDadosDepartamentoDetalhados.php",
+                success: function(r) {
+                    dados = jQuery.parseJSON(r);
+
+                    $('#codigoRegistoDepartamento').text(dados['idDepartamento']);
+                    $('#nomeDepartamento').text(dados['nomeDepartamento']);
+                    $('#ChefeDepartamento').text(dados['nomeChefiaDepartamento']);
+                    $('#numeroTotalfuncionarios').text(dados['numeroTotalFuncionarios']);
+                    $('#dataRegisto').text(dados['dataRegistoDepartamento']);
+                }
+            })
+        }
 
         $(document).ready(function() {
 

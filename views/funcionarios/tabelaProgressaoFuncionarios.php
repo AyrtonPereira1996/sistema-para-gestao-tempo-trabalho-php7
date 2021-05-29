@@ -5,7 +5,7 @@ require_once "../../classes/conexao.php";
 $con = new Conexao();
 $conexao = $con->conectar();
 
-$sqlPesquisaProgressaoFuncionarios = "SELECT p.idFuncionario_progressao, f.nomeFuncionario, p.escalao_antigo, p.escalao_actual, p.dataRegisto_progressao FROM funcionarios_progressao_carreiras as p INNER JOIN funcionarios as f on p.idFuncionario = f.idFuncionario ORDER BY p.dataRegisto_progressao";
+$sqlPesquisaProgressaoFuncionarios = "SELECT p.idFuncionario_progressao, f.nomeFuncionario, f.cargo, p.escalao_antigo, p.escalao_actual, p.dataRegisto_progressao FROM funcionarios_progressao_carreiras as p INNER JOIN funcionarios as f on p.idFuncionario = f.idFuncionario ORDER BY p.dataRegisto_progressao desc";
 $resultPesquisaProgressaoFuncionarios = mysqli_query($conexao, $sqlPesquisaProgressaoFuncionarios);
 
 

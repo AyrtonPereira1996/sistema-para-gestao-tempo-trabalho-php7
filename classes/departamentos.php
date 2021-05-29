@@ -10,7 +10,7 @@ class Departamentos
         $conexao = $con->conectar();
 
         $sql = "INSERT into departamentos (idDepartamento, nomeDepartamento, numeroTotalFuncionarios, dataRegisto) values (default, '$dados[0]', default, now())";
-
+  
         return mysqli_query($conexao, $sql);
     }
 
@@ -46,6 +46,25 @@ class Departamentos
         return $dados;
     }
 
+    public function recuperarDadosDepartamentoDetalhados($idDepartamento){
+        $con = new Conexao();
+        $conexao = $con->conectar();
+
+        $sql = "SELECT d.idDepartamento, d.nomeDepartamento, d.numeroTotalFuncionarios, d.dataRegisto, f.nomeFuncionario from departamentos as d inner join funcionarios_chefes_departamentos as c on d.idDepartamento = c.idDepartamento inner join funcionarios as f on c.idFuncionario = f.idFuncionario where d.idDepartamento = '$idDepartamento'";
+        $result = mysqli_query($conexao, $sql);
+        $resultItem = mysqli_fetch_row($result);
+
+        $dados = array(
+            "idDepartamento" => $resultItem[0],
+            "nomeDepartamento" => $resultItem[1],
+            "numeroTotalFuncionarios" => $resultItem[2],
+            "dataRegistoDepartamento" => $resultItem[3],
+            "nomeChefiaDepartamento" => $resultItem[4]
+        );
+
+        return $dados;
+    }
+
     // EDICAO DE REGISTO DE DEPARTAMENTO
      
     public function editarDepartamento($dados){
@@ -75,5 +94,38 @@ class Departamentos
         
         echo mysqli_query($conexao, $sql);
     }
+
+
+     // RECUPERAR DADOS PARA A EDICAO DE CARGO DE CHEFIA DE DEPARTAMENTO
+    
+    public function recuperarDadosEdicaoChefiaDepartamento($idChefiaDepartamento) {
+        $con = new Conexao();
+        $conexao = $con->conectar();
+
+        $sql = "SELECT c.idFuncionarios_chefes_departamentos, f.nomeFuncionario, d.nomeDepartamento, c.dataRegisto from funcionarios_chefes_departamentos as c INNER JOIN funcionarios as f on c.idFuncionario = f.idFuncionario INNER JOIN departamentos as d on c.idDepartamento = d.idDepartamento where c.idFuncionarios_chefes_departamentos = '$idChefiaDepartamento'";
+        $result = mysqli_query($conexao, $sql);
+        $resultItem = mysqli_fetch_row($result);
+
+        $dados = array(
+            "idChefiaDepartamento" => $resultItem[0],
+            "nomeFuncionario" => $resultItem[1],
+            "nomeDepartamento" => $resultItem[2],
+            "dataTomadaPosse" => $resultItem[3]
+        );
+
+        return $dados;       
+    }
+
+     // EDICAO DE CARGO DE CHEFIA DE DEPARTAMENTO
+     public function editarChefiaDepartamento($dados){
+         $con = new Conexao();
+         $conexao = $con -> conectar();
+
+         $sql = "UPDATE funcionarios_chefes_departamentos set idFuncionario = '$dados[1]' where idFuncionarios_chefes_departamentos = '$dados[0]'";
+
+         return mysqli_query($conexao, $sql);
+     }
+
+
 
 }

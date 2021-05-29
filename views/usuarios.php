@@ -12,20 +12,9 @@ $resultPesquisarFuncionarios = mysqli_query($conexao, $sqlPesquisarFuncionarios)
 $sqlPesquisarROLE_USERS = "SELECT idROLE_USER, tipoROLE_USER from ROLE_USERS";
 $resultPesquisarROLE_USERS = mysqli_query($conexao, $sqlPesquisarROLE_USERS);
 
+$sqlPesquisarROLE_USERSEdicao = "SELECT idROLE_USER, tipoROLE_USER from ROLE_USERS";
+$resultPesquisarROLE_USERSEdicao = mysqli_query($conexao, $sqlPesquisarROLE_USERS);
 
-function filtrar_roleUsers($conexao)
-{
-    $output = '';
-
-    $sqlPesquisarRoleUsersEdicao = "SELECT idROLE_USER, tipoROLE_USER from ROLE_USERS";
-    $resultPesquisarRoleUsersEdicao = mysqli_query($conexao, $sqlPesquisarRoleUsersEdicao);
-
-    while ($dadosPesquisaRoleUsersEdicao = mysqli_fetch_array($resultPesquisarRoleUsersEdicao)) {
-        $output .= '<option value="' . $dadosPesquisaRoleUsersEdicao["idROLE_USER"] . '">' . $dadosPesquisaRoleUsersEdicao["tipoROLE_USER"] . '</option>';
-    }
-
-    return $output;
-}
 
 ?>
 <!DOCTYPE html>
@@ -44,15 +33,52 @@ function filtrar_roleUsers($conexao)
     <main class="container-fluid">
         <section>
             <h1>Gestão de usuários</h1>
+
+
             <div class="row">
-                <span class="simple-label"><button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalRegistoUsuario">Registar novo usuário <i class="fas fa-plus-circle fa-fw fa-lg text-success"></i></button></span>
+            <span class="simple-label"><button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalRegistoUsuario">Registar novo usuário <i class="fas fa-plus-circle fa-fw fa-lg text-success"></i></button></span>
+
+                <form id="frmPesquisaFuncionario" class="frm-pesquisa">
+
+
+                    <span>Pesquisa:</span>
+
+
+                    <select name="" id="itemsPesquisa" class="form-select ">
+                        <option value="">Escolha o campo</option>
+                        <option value="codigoRegisto">Código de registo</option>
+                        <option value="nomeFuncionario">Nome do funcionário</option>
+                        <option value="cargo">Cargo que assume</option>
+                        <option value="escalao">Escalão</option>
+                        <option value="classe">Classe</option>
+                        <option value="anosServico">Anos de serviço</option>
+                        <option value="idade">Idade</option>
+                        <option value="departamento">Departamento</option>
+                        <option value="dataRegisto">Data de registo (ano-mês-dia)</option>
+                    </select>
+
+
+
+                    <input type="search" name="" id="" class="form-control" placeholder="Pesquise...">
+                    <button type="submit" class="btn btn-outline-secondary">Pesquisar</button>
+
+
+                </form>
+
+            </div>
+
+
+            <div class="row">
+               
                 <div class="col-12">
                     <div id="tabelaUsuariosLoad"></div>
                 </div>
 
+            </div>
+
         </section>
 
-        </div>
+        
     </main>
 
     <!-- MODALS -->
@@ -178,7 +204,7 @@ function filtrar_roleUsers($conexao)
         </div>
     </div>
 
-    <!-- MODAL EDICAO FUNCIONARIO -->
+    <!-- MODAL EDICAO USUARIO -->
 
     <div class="modal fade" id="modalEdicaoUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalEdicaoUsuario" aria-hidden="true">
         <div class="modal-dialog modal-fullscreen">
@@ -189,70 +215,37 @@ function filtrar_roleUsers($conexao)
                 </div>
 
                 <div class="modal-body">
-                    <form id="frmEdicaoUsuario" class="row" method="POST">
+                    <p>Escolha o que pretende fazer</p>
+                    <h3><i class="fas fa-angle-right"></i> Deseja alterar o tipo de usuário de sistema? :</h3>
+                    <label for="yesToEditUserRole" class="form-label">Sim</label> <input type="radio" name="answerToEditUserRole" id="yesToEditUserRole">|
+                    <label for="noToEditUserRole" class="form-label">Não</label> <input type="radio" name="answerToEditUserRole" id="noToEditUserRole">
+                    <section id="area-edicao-user-role">
+                        <form id="frmEdicaoUsuario" class="row" method="POST">
 
-                        <div class="alert alert-danger alert-dismissible fade show error-fields-registo-usuario" role="alert"><i class="fas fa-exclamation-triangle"></i> Preencha os campos que são obrigatórios
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
+                            <div class="col-4">
+                                <input id="txtIdUsuario" name="txtIdUsuario" class="form-control" hidden></input>
+                                <p><span class="label-details">Nome completo: </span> <span id="userName"></span></p>
+                                <p><span class="label-details">E-mail de acesso: </span> <span id="userEmailToLogin"></span></p>
+                                <p><span class="label-details">Tipo usuário actual: </span> <span id="userRoleActual"></span></p>
+                                <label for="txtUserRoleEdicao" class="form-label">Alterar o tipo de usuário para: </label>
+                                <select class="form-control" id="txtTipoUsuario" name="txtTipoUsuario">
+                                    <option value="">Escolha o tipo de usuário</option>
+                                    <?php while ($dadosPesquisarROLE_USERSEdicao = mysqli_fetch_row($resultPesquisarROLE_USERSEdicao)) : ?>
+                                        <option value="<?php echo $dadosPesquisarROLE_USERSEdicao[0]; ?>"><?php echo $dadosPesquisarROLE_USERSEdicao[1]; ?></option>
 
-                        <div class="alert alert-danger alert-wrong-password" role="alert">
-                            A senhas não coicidem. Volte a introduzir as senhas de acesso do usuário.
-                        </div>
+                                    <?php endwhile; ?>
+
+                                </select>
 
 
-
-                        <div class="col-12">
-                            <label for="txtNomeFuncionarioUsuarioEdicao" class="form-label">Nome do funcionario </label>
-                            <input type="text" name="txtNomeFuncionarioUsuarioEdicao" id="txtNomeFuncionarioUsuarioEdicao" class="form-control" readonly disabled>
-
-                            <div class="campo-invalido-vazio">
-                                <i class="fas fa-times"></i>Campo obrigatório!
+                                <div class="col-8">
+                                    <button type="submit" class="btn btn-success" id="btnEditarUsuario">Salvar usuário</button>
+                                </div>
                             </div>
-                        </div>
 
+                        </form>
+                    </section>
 
-                        <div class="col-12">
-                            <label for="txtEmailEdicao" class="form-label">Correio electrónico/E-mail</label>
-                            <input type="email" name="txtEmailEdicao" id="txtEmailEdicao" class="form-control" placeholder="E-mail" readonly disabled>
-
-
-                            <div class="campo-invalido-vazio">
-                                <i class="fas fa-times"></i>Campo obrigatório!
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <label for="txtUserRoleEdicao" class="form-label">Tipo de usuário</label>
-                            <select class="form-control" id="txtUserRoleEdicao" name="txtUserRoleEdicao">
-                                <option value="">Escolha o tipo de usuário</option>
-                                <?php
-                                
-                                echo filtrar_roleUsers($conexao);
-                                ?>
-
-                            </select>
-
-
-                            <div class="campo-invalido-vazio">
-                                <i class="fas fa-times"></i>Campo obrigatório!
-                            </div>
-                        </div>
-
-                        <div class="col-8">
-                            <label for="txtSenhaEdicao" class="form-label">Senha</label>
-                            <input type="password" name="txtSenhaEdicao" id="txtSenhaEdicao" class="form-control" placeholder="Digite uma senha" readonly disabled>
-
-                            <div class="campo-invalido-vazio">
-                                <i class="fas fa-times"></i>Campo obrigatório!
-                            </div>
-                        </div>
-                        <input type="hidden" name="txtIdUsuario" id="txtIdUsuario" readonly>
-                        <div class="col-8">
-                            <button type="submit" class="btn btn-success" id="btnEditarUsuario">Salvar usuário</button>
-                        </div>
-
-
-                    </form>
                 </div>
 
 
@@ -313,18 +306,23 @@ function filtrar_roleUsers($conexao)
         }
 
         function recuperarDadosUsuario(idUsuario) {
+
             $.ajax({
                 type: "POST",
                 data: "idUsuario=" + idUsuario,
                 url: "../procedimentos/usuarios/recuperarDadosEdicaoUsuario.php",
                 success: function(r) {
-                    dados = jQuery.parseJSON(r);
 
+
+                    dados = jQuery.parseJSON(r);
+                    console.log("idUsuario = " + dados['idUsuario']);
+
+                    $('#userRoleActual').text(dados['tipoRole']);
+                    $('#userName').text(dados['nomeFuncionario']);
+                    $('#userEmailToLogin').text(dados['emailUsuario']);
                     $('#txtIdUsuario').val(dados['idUsuario']);
-                    $('#txtNomeFuncionarioUsuarioEdicao').val(dados['nomeFuncionario']);
-                    $('#optionROLE_USER').val(dados['idRoleUsers']);
-                    $('#txtEmailEdicao').val(dados['emailUsuario']);
-                    $('#txtSenhaEdicao').val(dados['senhaUsuario']);
+
+
 
                 }
 
@@ -353,6 +351,23 @@ function filtrar_roleUsers($conexao)
 
         $(document).ready(function() {
             $('#tabelaUsuariosLoad').load('./usuarios/tabelaUsuarios.php');
+
+            $('#yesToEditUserRole').on('change', function() {
+                if ($(this).prop('checked') == true) {
+                    setTimeout(function() {
+                        $('#area-edicao-user-role').fadeIn('fast');
+                    }, 150);
+                }
+            });
+
+
+            $('#noToEditUserRole').on('change', function() {
+                if ($(this).prop('checked') == true) {
+                    setTimeout(function() {
+                        $('#area-edicao-user-role').fadeOut('fast');
+                    }, 150);
+                }
+            });
 
             $('#btnRegistarUsuario').on('click', function() {
                 $('#frmRegistoUsuario').on('submit', function(evento) {
@@ -428,15 +443,21 @@ function filtrar_roleUsers($conexao)
                 });
 
                 dados = $('#frmEdicaoUsuario').serialize();
-                console.log(dados);
 
                 $.ajax({
                     type: "POST",
                     data: dados,
                     url: "../procedimentos/usuarios/editarUsuario.php",
                     success: function(r) {
+                        alert(r);
                         if (r == 1) {
                             alert("Editado com sucesso");
+                            $("#txtTipoUsuario").prop('disabled', true);
+                            $("#btnEditarUsuario").prop('disabled', true);
+                            alertify.notify('Usuário editado com sucesso', 'success', 2, function() {
+                                location.reload();
+                            });
+
                         } else {
                             alert("Erro ao editar");
                         }

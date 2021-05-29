@@ -25,7 +25,7 @@ $resultadoPesquisaChefesDepartamentos = mysqli_query($conexao, $sqlPesquisaChefe
             <td><?php echo $dados[1]; ?></td>
             <td><?php echo $dados[3]; ?></td>
             <td>
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEdicaoDepartamento" onclick="recuperarDadosEdicaoDepartamento('<?php echo $dados[0]; ?>')">
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEditarChefeDepartamento" onclick="recuperarDadosEdicaoChefiaDepartamento('<?php echo $dados[0]; ?>')">
                     <i class="fas fa-pencil-alt"></i>
                 </button>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalConfirmacaoExclusaoChefiaDepartamento" onclick="excluirChefiaDepartamento('<?php echo $dados[0]; ?>')">
@@ -37,9 +37,3 @@ $resultadoPesquisaChefesDepartamentos = mysqli_query($conexao, $sqlPesquisaChefe
     <?php endwhile; ?>
 
 </table>
-
-<script>
-$(document).ready(function(){
-    $('#tabelaChefesDepartamentosLoad').DataTable();
-});
-</script>

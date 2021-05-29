@@ -35,7 +35,7 @@ if (mysqli_fetch_row($result) > 0) {
             <div id="img-login-area">
                 <img src="imgs/logo.png" alt="">
             </div>
-            <h1>DPEFZ - SIGETES</h1>
+            <h1>SPEFZ - SIGETES</h1>
             <div class="alert alert-danger fade show alert-login alert-login-invalid" role="alert"><i class="far fa-times-circle fa-lg"></i>Não deixe os campos em branco, preencha com o email e senha de usuário do sistema.</div>
 
 

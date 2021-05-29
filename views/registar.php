@@ -297,7 +297,7 @@ $conexao = $con->conectar();
                         data: dados,
                         url: '../procedimentos/funcionarios/adicionarFuncionario.php',
                         success: function(r) {
-                            alert(r);
+                            
                             if (r == 1) {
 
                                 alertify.alert('Funcionário salvo com sucesso', 'Funcionário salvo com sucesso! Registe-o como usuário super-admin do sistema no formulário seguinte', function() {

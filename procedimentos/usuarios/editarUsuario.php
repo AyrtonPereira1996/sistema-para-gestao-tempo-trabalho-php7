@@ -3,7 +3,7 @@ require_once "../../classes/conexao.php";
 require_once "../../classes/usuarios.php";
 
 $idUsuario = $_POST['txtIdUsuario'];
-$userRole = $_POST['txtUserRoleEdicao']; 
+$userRole = $_POST['txtTipoUsuario']; 
 
 $con = new Conexao();
 $conexao = $con->conectar();
