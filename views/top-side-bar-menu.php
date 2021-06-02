@@ -1,3 +1,13 @@
+<?php
+ini_set('display_errors', 1);
+require_once "./dependencias.php";
+require_once "../classes/conexao.php";
+
+$con = new Conexao();
+$conexao = $con->conectar();
+
+
+?>
 <header class="top-navbar">
     <div class="hamburguer">
         <div class="hamburguer-inner">
@@ -38,7 +48,7 @@
     <div class="sidebar-inner">
         <div class="user-data">
             <p>Bem-vindo,</p>
-            <p class="username">[Nome do usuario]</p>
+            <p class="user-name"><?php echo ($_SESSION['nomeUsuario']); ?></p>
 
         </div>
 
@@ -71,16 +81,16 @@
         </li>
 
         <li class="sidebar-menu-item">
-            <a href="./funcionariosAposentaodos.php">
+            <a href="./funcionariosAposentados.php">
                 <span class="icon"><i class="fas fa-angle-right"></i></span>
                 <span><span>Consultar</span> aposentados</span>
             </a>
         </li>
 
         <li class="sidebar-menu-item">
-            <a href="./departamentos.php"/>
-                <span class="icon"><i class="fas fa-angle-right"></i></span>
-                <span><span>Consultar/Registar</span> departamentos</span>
+            <a href="./departamentos.php" />
+            <span class="icon"><i class="fas fa-angle-right"></i></span>
+            <span><span>Consultar/Registar</span> departamentos</span>
             </a>
         </li>
 

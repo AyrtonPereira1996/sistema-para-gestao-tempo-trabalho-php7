@@ -5,7 +5,7 @@ require_once "../../classes/conexao.php";
 $con = new Conexao();
 $conexao = $con->conectar();
 
-$sqlPesquisaFuncionariosAposentados = "SELECT p.idFuncionario_aposentado, f.nomeFuncionario, f.dataInicioCarreira, p.dataAposentadoria FROM funcionarios_aposentados as p INNER JOIN funcionarios as f on p.idFuncionario = f.idFuncionario";
+$sqlPesquisaFuncionariosAposentados = "SELECT p.idFuncionario_aposentado, f.nomeFuncionario, YEAR(f.dataInicioCarreira), YEAR(p.dataAposentadoria), f.dataInicioCarreira, p.dataAposentadoria FROM funcionarios_aposentados as p INNER JOIN funcionarios as f on p.idFuncionario = f.idFuncionario";
 $resultPesquisaFuncionariosAposentados = mysqli_query($conexao, $sqlPesquisaFuncionariosAposentados);
 
 ?>
@@ -23,26 +23,21 @@ $resultPesquisaFuncionariosAposentados = mysqli_query($conexao, $sqlPesquisaFunc
         </thead>
 
         <tbody>
-        <?php
-            if($dadosPesquisaFuncionariosAposentados = mysqli_fetch_row($resultPesquisaFuncionariosAposentados)) {
-                while($dadosPesquisaFuncionariosAposentados = mysqli_fetch_row($resultPesquisaFuncionariosAposentados)) : ?>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="" onclick="">
-                        Detalhes
-                    </button>
-                </td>
-            </tr>
-            <?php endwhile;
-            } else {
-                echo "<caption>Sem registos</caption>";
-            }
-            ?>
+            <?php
+            while ($dadosPesquisaFuncionariosAposentados = mysqli_fetch_row($resultPesquisaFuncionariosAposentados)) : ?>
+                <tr>
+                    <td><?php echo $dadosPesquisaFuncionariosAposentados[0]; ?></td>
+                    <td><?php echo $dadosPesquisaFuncionariosAposentados[1]; ?></td>
+                    <td><?php echo ($dadosPesquisaFuncionariosAposentados[3] - $dadosPesquisaFuncionariosAposentados[2]); ?></td>
+                    <td><?php echo $dadosPesquisaFuncionariosAposentados[4]; ?></td>
+                    <td><?php echo $dadosPesquisaFuncionariosAposentados[5]; ?></td>
+                    <td>
+                        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="" onclick="">
+                            Detalhes
+                        </button>
+                    </td>
+                </tr>
+            <?php endwhile; ?>
         </tbody>
     </table>
 </div>

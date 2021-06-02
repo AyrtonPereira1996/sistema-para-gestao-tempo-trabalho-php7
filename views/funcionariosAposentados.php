@@ -1,10 +1,10 @@
 <?php
+session_start();
 ini_set('display_errors', 1);
 require_once "./dependencias.php";
 require_once "../classes/conexao.php";
 
-$con = new Conexao();
-$conexao = $con->conectar();
+if (isset($_SESSION['usuario'])) {
 
 
 
@@ -24,7 +24,7 @@ $conexao = $con->conectar();
 
     <main class="container-fluid">
         <section>
-            <h1>Registos das promoções dos funcionários</h1>
+            <h1>Registos de funcionários aposentados</h1>
 
             <div class="row mt-5">
                 
@@ -39,13 +39,9 @@ $conexao = $con->conectar();
                         <option value="">Escolha o campo</option>
                         <option value="codigoRegisto">Código de registo</option>
                         <option value="nomeFuncionario">Nome do funcionário</option>
-                        <option value="cargo">Cargo que assume</option>
-                        <option value="escalao">Escalão</option>
-                        <option value="classe">Classe</option>
-                        <option value="anosServico">Anos de serviço</option>
-                        <option value="idade">Idade</option>
-                        <option value="departamento">Departamento</option>
-                        <option value="dataRegisto">Data de registo (ano-mês-dia)</option>
+                        <option value="cargo">Anos de carreira</option>
+                        <option value="escalao">Data inicio de carreira</option>
+                        <option value="classe">Data de aposentação</option>
                     </select>
 
 
@@ -82,3 +78,10 @@ $conexao = $con->conectar();
 </body>
 
 </html>
+
+<?php
+} else {
+    header("location:../index.php");
+}
+
+?>

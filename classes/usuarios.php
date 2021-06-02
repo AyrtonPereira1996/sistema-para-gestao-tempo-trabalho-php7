@@ -20,6 +20,11 @@ class Usuarios
 
         $senha = sha1($dados[1]);
 
+        $_SESSION['usuario'] = $dados[0];
+        $_SESSION['id'] = self::obterIdUsuario($dados);
+        $_SESSION['nomeUsuario'] = self::obterNomeUsuario($_SESSION['id']);
+        $_SESSION['idRoleUser'] = self::obterIdRoleUser($_SESSION['id']);
+
         $sql = "SELECT * from usuarios where email = '$dados[0]' and senha = '$senha'";
 
         $result = mysqli_query($conexao, $sql);
@@ -29,6 +34,40 @@ class Usuarios
         } else {
             return 0;
         };
+    }
+
+    public function obterIdUsuario($dados)
+    {
+        $con = new Conexao();
+        $conexao = $con->conectar();
+
+        $senha = sha1($dados[1]);
+
+        $sql = "SELECT idUsuario FROM usuarios where email = '$dados[0]' and senha = '$senha'";
+        $result = mysqli_query($conexao, $sql);
+
+        return mysqli_fetch_row($result)[0];
+    }
+
+    public function obterNomeUsuario($idUsuario)
+    {
+        $con = new Conexao();
+        $conexao = $con->conectar();
+
+        $sql = "SELECT f.nomeFuncionario from funcionarios as f inner join usuarios as u on f.idFuncionario = u.idFuncionario where u.idUsuario = '$idUsuario'";
+        $result = mysqli_query($conexao, $sql);
+
+        return mysqli_fetch_row($result)[0];
+    }
+
+    public function obterIdRoleUser($idUsuario) {
+        $con = new Conexao();
+        $conexao = $con->conectar();
+
+        $sql = "SELECT idRole_Users FROM usuarios WHERE idUsuario = '$idUsuario'";
+        $result = mysqli_query($conexao, $sql);
+
+        return mysqli_fetch_row($result)[0];
     }
 
     public function excluirUsuario($idUsuario)
@@ -46,7 +85,7 @@ class Usuarios
         $conexao = $con->conectar();
 
         $sql = "SELECT u.idUsuario, f.nomeFuncionario, u.email, r.idROLE_USER, r.tipoROLE_USER from usuarios as u inner join ROLE_USERS as r on u.idRole_Users = r.idROLE_USER INNER JOIN funcionarios as f on u.idFuncionario = f.idFuncionario where u.idUsuario = '$idUsuario'";
-        
+
         $result = mysqli_query($conexao, $sql);
 
         $resultItem = mysqli_fetch_row($result);
@@ -61,7 +100,8 @@ class Usuarios
         return $dados;
     }
 
-    public function recuperarDadosDetalhadosUsuario($idUsuario){
+    public function recuperarDadosDetalhadosUsuario($idUsuario)
+    {
         $con = new Conexao();
         $conexao = $con->conectar();
 
@@ -84,13 +124,13 @@ class Usuarios
     }
 
 
-    public function editarUsuario($dados) {
+    public function editarUsuario($dados)
+    {
         $con = new Conexao();
         $conexao = $con->conectar();
 
         $sql = "UPDATE usuarios set idRole_users = '$dados[1]' where idUsuario = '$dados[0]'";
-        
+
         echo mysqli_query($conexao, $sql);
     }
-
 }

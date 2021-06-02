@@ -5,6 +5,14 @@ require_once "../classes/conexao.php";
 $con = new Conexao();
 $conexao = $con->conectar();
 
+$sql = "SELECT * from usuarios where idRole_Users = 1";
+$result = mysqli_query($conexao, $sql);
+
+$validar = 0;
+if(mysqli_fetch_row($result) > 0){
+    header("location:../index.php");
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-PT">

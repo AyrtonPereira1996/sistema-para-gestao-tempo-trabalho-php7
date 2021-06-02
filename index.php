@@ -106,7 +106,7 @@ if (mysqli_fetch_row($result) > 0) {
 
             if (isNotEmptyLoginFields(username) && isNotEmptyLoginFields(senha)) {
                 dados = $('#login-form').serialize();
-                console.log("aqui");
+                
                 $.ajax({
                     type: "POST",
                     data: dados,
@@ -114,7 +114,8 @@ if (mysqli_fetch_row($result) > 0) {
                     success: function(r) {
                         
                         if (r == 1) {
-                            window.location = "./views/home.php"
+                            window.location = "./views/home.php";
+                            
                         } else {
                             alert("Deu erro");
                         };

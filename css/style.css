@@ -289,11 +289,16 @@ form#login-form .errors-fields {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 20px;
+  padding: 40px;
   white-space: nowrap;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
   font-weight: bold;
 }
+
+.sidebar .user-data .user-name {
+color:#f9686f !important;
+}
+
 
 .sidebar .user-data p.username {
   font-size: 0.75em;
@@ -359,6 +364,10 @@ body.active main.container-fluid {
 
 body.active .top-navbar .hamburguer .hamburguer-inner div.two {
   width: 30px !important;
+}
+
+body.active .sidebar .user-data .user-name{
+  display: block !important;
 }
 
 /* FORMS RULES */
