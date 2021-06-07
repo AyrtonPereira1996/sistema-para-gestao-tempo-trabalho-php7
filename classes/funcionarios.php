@@ -3,7 +3,7 @@
 class Funcionarios
 {
 
-
+    // FUNCAO PARA PERSISTENCIA DE DADOS DOS FUNCIONARIO
     public function adicionarFuncionario($dados)
     {
         $con = new Conexao();
@@ -14,6 +14,7 @@ class Funcionarios
         return mysqli_query($conexao, $sql);
     }
 
+    // FUNCAO PARA EXCLUSAO DE DADOS DO FUNCIONARIO
     public function excluirFuncionario($idFuncionario)
     {
         $con = new Conexao();
@@ -23,6 +24,7 @@ class Funcionarios
         echo mysqli_query($conexao, $sql);
     }
 
+    // FUNCAO PARA RECUPERAR DADOS DE USUARIO PARA PREVIZUALIZAO 
     public function recuperarDadosFuncionario($idFuncionario)
     {
         $con = new Conexao();
@@ -54,6 +56,7 @@ class Funcionarios
         return $dados;
     }
 
+    // FUNCAO PARA RECUPERAR DADOS DETALHADOS PARA CONSULTA 
     public function recuperarDadosDetalhadosFuncionario($idFuncionario)
     {
         $con = new Conexao();
@@ -86,6 +89,7 @@ class Funcionarios
         return $dados;
     }
 
+    // FUNCAO PARA EDITAR DADOS DE FUNCIONARIO
     public function editarFuncionario($dados)
     {
         $con = new Conexao();
@@ -96,6 +100,7 @@ class Funcionarios
         return mysqli_query($conexao, $sql);
     }
 
+    // FUNCAO PARA PROMOVER DADOS DE FUNCIONARIO
     public function promoverFuncionario($dados)
     {
         $con = new Conexao();
@@ -107,6 +112,7 @@ class Funcionarios
         return mysqli_query($conexao, $sql);
     }
 
+    // FUNCAO PARA PROGREDIR DADOS DE FUNCIONARIO
     public function progredirFuncionario($dados)
     {
         $con = new Conexao();
@@ -118,6 +124,7 @@ class Funcionarios
         return mysqli_query($conexao, $sql);
     }
 
+    // FUNCAO PARA APOSENTAR DADOS DE FUNCIONARIO
     public function aposentarFuncionario($dados)
     {
         $con = new Conexao();

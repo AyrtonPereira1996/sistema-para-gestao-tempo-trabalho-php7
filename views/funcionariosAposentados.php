@@ -9,75 +9,154 @@ if (isset($_SESSION['usuario'])) {
 
 
 ?>
-<!DOCTYPE html>
-<html lang="pt-PT">
+    <!DOCTYPE html>
+    <html lang="pt-PT">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Área funcionários aposentados | SIGETES</title>
-    <?php require_once "./top-side-bar-menu.php"; ?>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Área funcionários aposentados | SIGETES</title>
+        <?php require_once "./top-side-bar-menu.php"; ?>
 
-</head>
+    </head>
 
-<body>
+    <body>
 
-    <main class="container-fluid">
-        <section>
-            <h1>Registos de funcionários aposentados</h1>
+        <main class="container-fluid">
+            <section>
+                <h1>Registos de funcionários aposentados</h1>
 
-            <div class="row mt-5">
-                
-
-                <form id="frmPesquisaFuncionario" class="frm-pesquisa">
+                <div class="row">
 
 
-                    <span>Pesquisa:</span>
+                    <form id="frmPesquisaFuncionario" class="frm-pesquisa">
 
 
-                    <select name="" id="itemsPesquisa" class="form-select ">
-                        <option value="">Escolha o campo</option>
-                        <option value="codigoRegisto">Código de registo</option>
-                        <option value="nomeFuncionario">Nome do funcionário</option>
-                        <option value="cargo">Anos de carreira</option>
-                        <option value="escalao">Data inicio de carreira</option>
-                        <option value="classe">Data de aposentação</option>
-                    </select>
+                        <span>Pesquisa:</span>
 
 
-
-                    <input type="search" name="" id="" class="form-control" placeholder="Pesquise...">
-                    <button type="submit" class="btn btn-outline-secondary">Pesquisar</button>
-                   
-
-
-                </form>
-
-            </div>
+                        <select id="itemsPesquisa" class="form-select ">
+                            <option>Escolha o campo</option>
+                            <option value="codigoRegisto">Código de registo</option>
+                            <option value="nomeFuncionario">Nome do funcionário</option>
+                            <option value="anosCarreira">Anos de carreira</option>
+                            <option value="dataInicioCarreira">Data inicio de carreira</option>
+                            <option value="dataAposentacao">Data de aposentação</option>
+                        </select>
 
 
 
-            <div class="row">
-                <div class="col-12">
-                    <div id="tabelaFuncionariosAposentadosLoad"></div>
+                        <input type="search" id="input-search" class="form-control" placeholder="Pesquise...">
+
+
+                    </form>
+
                 </div>
-            </div>
-
-        </section>
-
-
-    </main>
 
 
 
-    <script>
-        $(document).ready(function() {
-            $('#tabelaFuncionariosAposentadosLoad').load('./funcionarios/tabelaFuncionariosAposentados.php');
-        });
-    </script>
-</body>
+                <div class="row">
+                    <div class="col-12">
+                        <div id="tabelaFuncionariosAposentadosLoad"></div>
+                    </div>
+                </div>
 
-</html>
+            </section>
+
+
+        </main>
+
+
+
+        <script>
+            $(document).ready(function() {
+                $('#tabelaFuncionariosAposentadosLoad').load('./funcionarios/tabelaFuncionariosAposentados.php');
+
+                $('#itemsPesquisa').on('change', function() {
+                    if ($('#itemsPesquisa option').filter(':selected').val() == "codigoRegisto") {
+                        $('#input-search').on('keyup', function() {
+                            var value = $(this).val();
+
+                            $('table tr').each(function(result) {
+                                if (result != 0) {
+                                    var id = $(this).children("td").eq(0).text();
+                                    if (id.indexOf(value) !== 0 && id.toLowerCase().indexOf(value.toLowerCase()) < 0) {
+                                        $(this).hide();
+                                    } else {
+                                        $(this).show();
+                                    };
+                                }
+                            })
+                        });
+                    } else if ($('#itemsPesquisa option').filter(':selected').val() == "nomeFuncionario") {
+                        $('#input-search').on('keyup', function() {
+                            var value = $(this).val();
+
+                            $('table tr').each(function(result) {
+                                if (result != 0) {
+                                    var id = $(this).children("td").eq(1).text();
+                                    if (id.indexOf(value) !== 0 && id.toLowerCase().indexOf(value.toLowerCase()) < 0) {
+                                        $(this).hide();
+                                    } else {
+                                        $(this).show();
+                                    };
+                                }
+                            })
+                        });
+                    } else if ($('#itemsPesquisa option').filter(':selected').val() == "anosCarreira") {
+                        $('#input-search').on('keyup', function() {
+                            var value = $(this).val();
+
+                            $('table tr').each(function(result) {
+                                if (result != 0) {
+                                    var id = $(this).children("td").eq(2).text();
+                                    if (id.indexOf(value) !== 0 && id.toLowerCase().indexOf(value.toLowerCase()) < 0) {
+                                        $(this).hide();
+                                    } else {
+                                        $(this).show();
+                                    };
+                                }
+                            })
+                        });
+                    } else if ($('#itemsPesquisa option').filter(':selected').val() == "dataInicioCarreira") {
+                        $('#input-search').on('keyup', function() {
+                            var value = $(this).val();
+
+                            $('table tr').each(function(result) {
+                                if (result != 0) {
+                                    var id = $(this).children("td").eq(3).text();
+                                    if (id.indexOf(value) !== 0 && id.toLowerCase().indexOf(value.toLowerCase()) < 0) {
+                                        $(this).hide();
+                                    } else {
+                                        $(this).show();
+                                    };
+                                }
+                            })
+                        });
+                    } else if ($('#itemsPesquisa option').filter(':selected').val() == "dataAposentacao") {
+                        $('#input-search').on('keyup', function() {
+                            var value = $(this).val();
+
+                            $('table tr').each(function(result) {
+                                if (result != 0) {
+                                    var id = $(this).children("td").eq(4).text();
+                                    if (id.indexOf(value) !== 0 && id.toLowerCase().indexOf(value.toLowerCase()) < 0) {
+                                        $(this).hide();
+                                    } else {
+                                        $(this).show();
+                                    };
+                                }
+                            })
+                        });
+                    }
+
+                });
+
+            });
+        </script>
+    </body>
+
+    </html>
 
 <?php
 } else {

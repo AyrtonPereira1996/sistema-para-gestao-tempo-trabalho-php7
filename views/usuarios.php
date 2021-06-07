@@ -45,25 +45,19 @@ if (isset($_SESSION['usuario'])) {
 
 
                         <span>Pesquisa:</span>
-
-
-                        <select name="" id="itemsPesquisa" class="form-select ">
-                            <option value="">Escolha o campo</option>
+                        <select id="itemsPesquisa" class="form-select ">
+                            <option>Escolha o campo</option>
                             <option value="codigoRegisto">Código de registo</option>
                             <option value="nomeFuncionario">Nome do funcionário</option>
-                            <option value="cargo">Cargo que assume</option>
-                            <option value="escalao">Escalão</option>
-                            <option value="classe">Classe</option>
-                            <option value="anosServico">Anos de serviço</option>
-                            <option value="idade">Idade</option>
-                            <option value="departamento">Departamento</option>
+                            <option value="email">E-mail/Correio electrónico</option>
+                            <option value="tipoUsuario">Tipo de usuário</option>
                             <option value="dataRegisto">Data de registo (ano-mês-dia)</option>
                         </select>
 
 
 
-                        <input type="search" name="" id="" class="form-control" placeholder="Pesquise...">
-                        <button type="submit" class="btn btn-outline-secondary">Pesquisar</button>
+                        <input type="search" id="input-search" class="form-control" placeholder="Pesquise...">
+
 
 
                     </form>
@@ -355,120 +349,200 @@ if (isset($_SESSION['usuario'])) {
             $(document).ready(function() {
                 $('#tabelaUsuariosLoad').load('./usuarios/tabelaUsuarios.php');
 
-                $('#yesToEditUserRole').on('change', function() {
-                    if ($(this).prop('checked') == true) {
-                        setTimeout(function() {
-                            $('#area-edicao-user-role').fadeIn('fast');
-                        }, 150);
-                    }
-                });
 
+                $('#itemsPesquisa').on('change', function() {
 
-                $('#noToEditUserRole').on('change', function() {
-                    if ($(this).prop('checked') == true) {
-                        setTimeout(function() {
-                            $('#area-edicao-user-role').fadeOut('fast');
-                        }, 150);
-                    }
-                });
+                    if ($('#itemsPesquisa option').filter(':selected').val() == "codigoRegisto") {
 
-                $('#btnRegistarUsuario').on('click', function() {
-                    $('#frmRegistoUsuario').on('submit', function(evento) {
-                        evento.preventDefault();
-                    });
+                        $('#input-search').on('keyup', function() {
+                            var value = $(this).val();
 
-                    idFuncionario = $('#txtFuncionarioUsuario');
-                    emailFuncionario = $('#txtEmail');
-                    roleUser = $('#txtUserRole');
-                    senha = $('#txtSenha');
-                    confirmacaoSenha = $('#txtSenhaConfirmacao');
-                    textValue = $('#txtFuncionarioUsuario').val();
-                    idValueFuncionario = $('#lista-funcionarios [value ="' + textValue + '"]').data('value');
-
-                    function isNotEmptyUsuario(field) {
-                        if (field.val() == "") {
-                            $('.error-fields-registo-usuario').fadeIn('fast');
-                            field.css('border', 'solid 2px #dc3545');
-                            return false;
-                        } else {
-                            if (isNotDifferentPassword(senha, confirmacaoSenha)) {
-                                field.css('border', 'solid 2px #198754');
-                            } else {
-                                senha.css('border', 'solid 2px #dc3545');
-                                confirmacaoSenha.css('border', 'solid 2px #dc3545');
-                            }
-                            return true;
-                        };
-                    };
-
-                    function isNotDifferentPassword(password, passwordConfirm) {
-                        if (password.val() == passwordConfirm.val()) {
-                            $('.alert-wrong-password').fadeOut('fast');
-
-                            return true;
-                        } else {
-                            $('.alert-wrong-password').fadeIn('fast');
-                            return false;
-                        }
-                    };
-
-                    if (isNotEmptyUsuario(idFuncionario) && isNotEmptyUsuario(emailFuncionario) && isNotEmptyUsuario(roleUser) && isNotEmptyUsuario(senha) && isNotEmptyUsuario(confirmacaoSenha)) {
-                        if (isNotDifferentPassword(senha, confirmacaoSenha)) {
-                            dados = $('#frmRegistoUsuario').serialize();
-
-                            $.ajax({
-                                url: "../procedimentos/login/adicionarUsuario.php",
-                                method: 'POST',
-                                data: dados,
-                                success: function(r) {
-                                    if (r == 1) {
-                                        $('#tabelaUsuariosLoad').load('./usuarios/tabelaUsuarios.php')
-                                        alertify.alert('Usuario salvo com sucesso', 'Usuário salvo com sucesso!', function() {
-                                            setTimeout(function() {
-                                                window.location.href = "./usuarios.php";
-                                            }, 1000);
-                                        });
-
-
+                            $('table tr').each(function(result) {
+                                if (result != 0) {
+                                    var id = $(this).children("td").eq(0).text();
+                                    if (id.indexOf(value) !== 0 && id.toLowerCase().indexOf(value.toLowerCase()) < 0) {
+                                        $(this).hide();
                                     } else {
-                                        alertify.alert('Erro ao salvar o usuário', 'Não foi possível salvar com sucesso!');
+                                        $(this).show();
                                     };
                                 }
-                            });
-                        };
-                    };
+                            })
+                        });
+                    } else if ($('#itemsPesquisa option').filter(':selected').val() == "nomeFuncionario") {
+                        $('#input-search').on('keyup', function() {
+                            var value = $(this).val();
 
+                            $('table tr').each(function(result) {
+                                if (result != 0) {
+                                    var id = $(this).children("td").eq(1).text();
+                                    if (id.indexOf(value) !== 0 && id.toLowerCase().indexOf(value.toLowerCase()) < 0) {
+                                        $(this).hide();
+                                    } else {
+                                        $(this).show();
+                                    };
+                                }
+                            })
+                        });
+                    } else if ($('#itemsPesquisa option').filter(':selected').val() == "email") {
+                        $('#input-search').on('keyup', function() {
+                            var value = $(this).val();
+
+                            $('table tr').each(function(result) {
+                                if (result != 0) {
+                                    var id = $(this).children("td").eq(2).text();
+                                    if (id.indexOf(value) !== 0 && id.toLowerCase().indexOf(value.toLowerCase()) < 0) {
+                                        $(this).hide();
+                                    } else {
+                                        $(this).show();
+                                    };
+                                }
+                            })
+                        });
+                    } else if ($('#itemsPesquisa option').filter(':selected').val() == "tipoUsuario") {
+                        $('#input-search').on('keyup', function() {
+                            var value = $(this).val();
+
+                            $('table tr').each(function(result) {
+                                if (result != 0) {
+                                    var id = $(this).children("td").eq(4).text();
+                                    if (id.indexOf(value) !== 0 && id.toLowerCase().indexOf(value.toLowerCase()) < 0) {
+                                        $(this).hide();
+                                    } else {
+                                        $(this).show();
+                                    };
+                                }
+                            })
+                        });
+                    } else if ($('#itemsPesquisa option').filter(':selected').val() == "dataRegisto") {
+                        $('#input-search').on('keyup', function() {
+                            var value = $(this).val();
+
+                            $('table tr').each(function(result) {
+                                if (result != 0) {
+                                    var id = $(this).children("td").eq(5).text();
+                                    if (id.indexOf(value) !== 0 && id.toLowerCase().indexOf(value.toLowerCase()) < 0) {
+                                        $(this).hide();
+                                    } else {
+                                        $(this).show();
+                                    };
+                                }
+                            })
+                        });
+                    }
+                })
+            });
+
+            $('#yesToEditUserRole').on('change', function() {
+                if ($(this).prop('checked') == true) {
+                    setTimeout(function() {
+                        $('#area-edicao-user-role').fadeIn('fast');
+                    }, 150);
+                }
+            });
+
+
+            $('#noToEditUserRole').on('change', function() {
+                if ($(this).prop('checked') == true) {
+                    setTimeout(function() {
+                        $('#area-edicao-user-role').fadeOut('fast');
+                    }, 150);
+                }
+            });
+
+            $('#btnRegistarUsuario').on('click', function() {
+                $('#frmRegistoUsuario').on('submit', function(evento) {
+                    evento.preventDefault();
                 });
 
-                $('#btnEditarUsuario').on('click', function() {
-                    $('#frmEdicaoUsuario').on('submit', function(evento) {
-                        evento.preventDefault();
-                    });
+                idFuncionario = $('#txtFuncionarioUsuario');
+                emailFuncionario = $('#txtEmail');
+                roleUser = $('#txtUserRole');
+                senha = $('#txtSenha');
+                confirmacaoSenha = $('#txtSenhaConfirmacao');
+                textValue = $('#txtFuncionarioUsuario').val();
+                idValueFuncionario = $('#lista-funcionarios [value ="' + textValue + '"]').data('value');
 
-                    dados = $('#frmEdicaoUsuario').serialize();
-
-                    $.ajax({
-                        type: "POST",
-                        data: dados,
-                        url: "../procedimentos/usuarios/editarUsuario.php",
-                        success: function(r) {
-                            alert(r);
-                            if (r == 1) {
-                                alert("Editado com sucesso");
-                                $("#txtTipoUsuario").prop('disabled', true);
-                                $("#btnEditarUsuario").prop('disabled', true);
-                                alertify.notify('Usuário editado com sucesso', 'success', 2, function() {
-                                    location.reload();
-                                });
-
-                            } else {
-                                alert("Erro ao editar");
-                            }
+                function isNotEmptyUsuario(field) {
+                    if (field.val() == "") {
+                        $('.error-fields-registo-usuario').fadeIn('fast');
+                        field.css('border', 'solid 2px #dc3545');
+                        return false;
+                    } else {
+                        if (isNotDifferentPassword(senha, confirmacaoSenha)) {
+                            field.css('border', 'solid 2px #198754');
+                        } else {
+                            senha.css('border', 'solid 2px #dc3545');
+                            confirmacaoSenha.css('border', 'solid 2px #dc3545');
                         }
-                    });
+                        return true;
+                    };
+                };
+
+                function isNotDifferentPassword(password, passwordConfirm) {
+                    if (password.val() == passwordConfirm.val()) {
+                        $('.alert-wrong-password').fadeOut('fast');
+
+                        return true;
+                    } else {
+                        $('.alert-wrong-password').fadeIn('fast');
+                        return false;
+                    }
+                };
+
+                if (isNotEmptyUsuario(idFuncionario) && isNotEmptyUsuario(emailFuncionario) && isNotEmptyUsuario(roleUser) && isNotEmptyUsuario(senha) && isNotEmptyUsuario(confirmacaoSenha)) {
+                    if (isNotDifferentPassword(senha, confirmacaoSenha)) {
+                        dados = $('#frmRegistoUsuario').serialize();
+
+                        $.ajax({
+                            url: "../procedimentos/login/adicionarUsuario.php",
+                            method: 'POST',
+                            data: dados,
+                            success: function(r) {
+                                if (r == 1) {
+                                    $('#tabelaUsuariosLoad').load('./usuarios/tabelaUsuarios.php')
+                                    alertify.alert('Usuario salvo com sucesso', 'Usuário salvo com sucesso!', function() {
+                                        setTimeout(function() {
+                                            window.location.href = "./usuarios.php";
+                                        }, 1000);
+                                    });
+
+
+                                } else {
+                                    alertify.alert('Erro ao salvar o usuário', 'Não foi possível salvar com sucesso!');
+                                };
+                            }
+                        });
+                    };
+                };
+
+            });
+
+            $('#btnEditarUsuario').on('click', function() {
+                $('#frmEdicaoUsuario').on('submit', function(evento) {
+                    evento.preventDefault();
                 });
 
+                dados = $('#frmEdicaoUsuario').serialize();
 
+                $.ajax({
+                    type: "POST",
+                    data: dados,
+                    url: "../procedimentos/usuarios/editarUsuario.php",
+                    success: function(r) {
+                        alert(r);
+                        if (r == 1) {
+                            alert("Editado com sucesso");
+                            $("#txtTipoUsuario").prop('disabled', true);
+                            $("#btnEditarUsuario").prop('disabled', true);
+                            alertify.notify('Usuário editado com sucesso', 'success', 2, function() {
+                                location.reload();
+                            });
+
+                        } else {
+                            alert("Erro ao editar");
+                        }
+                    }
+                });
             });
         </script>
 

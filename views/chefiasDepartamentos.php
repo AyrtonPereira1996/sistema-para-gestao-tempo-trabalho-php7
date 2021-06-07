@@ -36,8 +36,9 @@ if (isset($_SESSION['usuario'])) {
                 <div class="row">
                     <div class="group-labels text-right">
                         <a href="./departamentos.php"><span class="btn btn-link simple-label">Consultar/registar departamentos<spa data-bs-toggle="modal"></span></a>
-
-                        <span class="simple-label"><button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalRegistoChefeDepartamento">Associar novo chefe<i class="fas fa-plus-circle fa-fw fa-lg"></i></button></span>
+                        <?php if (($_SESSION['idRoleUser'] == 1) || ($_SESSION['idRoleUser'] == 2)) { ?>
+                            <span class="simple-label"><button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalRegistoChefeDepartamento">Associar novo chefe<i class="fas fa-plus-circle fa-fw fa-lg"></i></button></span>
+                        <?php }; ?>
                     </div>
 
                     <form id="frmPesquisaFuncionario" class="frm-pesquisa">
@@ -45,18 +46,18 @@ if (isset($_SESSION['usuario'])) {
                         <span>Pesquisa:</span>
 
 
-                        <select name="" id="itemsPesquisa" class="form-select ">
-                            <option value="">Escolha o campo</option>
+                        <select id="itemsPesquisa" class="form-select">
+                            <option>Escolha o campo</option>
                             <option value="codigoRegisto">Código de registo</option>
-                            <option value="nomeFuncionario">Nome do departamento</option>
-                            <option value="cargo">Nome do chefe</option>
-                            <option value="escalao">Data de registo</option>
+                            <option value="nomeDepartamento">Nome do departamento</option>
+                            <option value="nomeChefe">Nome do chefe</option>
+                            <option value="dataRegisto">Data de registo</option>
                         </select>
 
 
 
-                        <input type="search" name="" id="" class="form-control" placeholder="Pesquise...">
-                        <button type="submit" class="btn btn-outline-secondary">Pesquisar</button>
+                        <input type="search" id="input-search" class="form-control" placeholder="Pesquise...">
+
 
 
                     </form>
@@ -270,8 +271,73 @@ if (isset($_SESSION['usuario'])) {
 
 
             $(document).ready(function() {
-
                 $('#tabelaChefesDepartamentosLoad').load('./departamentos/tabelaChefiasDepartamento.php');
+
+                $('#itemsPesquisa').on('change', function() {
+
+                    if ($('#itemsPesquisa option').filter(':selected').val() == "codigoRegisto") {
+
+                        $('#input-search').on('keyup', function() {
+                            var value = $(this).val();
+
+                            $('table tr').each(function(result) {
+                                if (result != 0) {
+                                    var id = $(this).children("td").eq(0).text();
+                                    if (id.indexOf(value) !== 0 && id.toLowerCase().indexOf(value.toLowerCase()) < 0) {
+                                        $(this).hide();
+                                    } else {
+                                        $(this).show();
+                                    };
+                                }
+                            })
+                        });
+                    } else if ($('#itemsPesquisa option').filter(':selected').val() == "nomeDepartamento") {
+                        $('#input-search').on('keyup', function() {
+                            var value = $(this).val();
+
+                            $('table tr').each(function(result) {
+                                if (result != 0) {
+                                    var id = $(this).children("td").eq(1).text();
+                                    if (id.indexOf(value) !== 0 && id.toLowerCase().indexOf(value.toLowerCase()) < 0) {
+                                        $(this).hide();
+                                    } else {
+                                        $(this).show();
+                                    };
+                                }
+                            })
+                        });
+                    } else if ($('#itemsPesquisa option').filter(':selected').val() == "nomeChefe") {
+                        $('#input-search').on('keyup', function() {
+                            var value = $(this).val();
+
+                            $('table tr').each(function(result) {
+                                if (result != 0) {
+                                    var id = $(this).children("td").eq(2).text();
+                                    if (id.indexOf(value) !== 0 && id.toLowerCase().indexOf(value.toLowerCase()) < 0) {
+                                        $(this).hide();
+                                    } else {
+                                        $(this).show();
+                                    };
+                                }
+                            })
+                        });
+                    } else if ($('#itemsPesquisa option').filter(':selected').val() == "dataRegisto") {
+                        $('#input-search').on('keyup', function() {
+                            var value = $(this).val();
+
+                            $('table tr').each(function(result) {
+                                if (result != 0) {
+                                    var id = $(this).children("td").eq(3).text();
+                                    if (id.indexOf(value) !== 0 && id.toLowerCase().indexOf(value.toLowerCase()) < 0) {
+                                        $(this).hide();
+                                    } else {
+                                        $(this).show();
+                                    };
+                                }
+                            })
+                        });
+                    }
+                });
 
 
                 $('#yesToDesassociarChefeDepartamento').on('change', function() {

@@ -32,31 +32,32 @@ if (isset($_SESSION['usuario'])) {
             <section>
                 <h1>Registos de funcionários</h1>
                 <div class="row">
-                    <span class="simple-label"><button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalRegistoFuncionario">Registar novo funcionário<i class="fas fa-plus-circle fa-fw fa-lg text-success"></i></button></span>
-
+                    <?php if (($_SESSION['idRoleUser'] == 1) || ($_SESSION['idRoleUser'] == 2)) { ?>
+                        <span class="simple-label"><button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalRegistoFuncionario">Registar novo funcionário<i class="fas fa-plus-circle fa-fw fa-lg text-success"></i></button></span>
+                    <?php }; ?>
                     <form id="frmPesquisaFuncionario" class="frm-pesquisa">
 
 
                         <span>Pesquisa:</span>
 
 
-                        <select name="" id="itemsPesquisa" class="form-select ">
-                            <option value="">Escolha o campo</option>
-                            <option value="codigoRegisto">Código de registo</option>
-                            <option value="nomeFuncionario">Nome do funcionário</option>
-                            <option value="cargo">Cargo que assume</option>
-                            <option value="escalao">Escalão</option>
-                            <option value="classe">Classe</option>
-                            <option value="anosServico">Anos de serviço</option>
-                            <option value="idade">Idade</option>
-                            <option value="departamento">Departamento</option>
-                            <option value="dataRegisto">Data de registo (ano-mês-dia)</option>
+                        <select id="itemsPesquisa" class="form-select ">
+                            <option>Escolha o campo</option>
+                            <option value="optionCodigoRegisto">Código de registo</option>
+                            <option value="optionNomeFuncionario">Nome do funcionário</option>
+                            <option value="optionCargo">Cargo que assume</option>
+                            <option value="optionEscalao">Escalão</option>
+                            <option value="optionClasse">Classe</option>
+                            <option value="optionAnosServico">Anos de serviço</option>
+                            <option value="optionIdade">Idade</option>
+                            <option value="optionDepartamento">Departamento</option>
+                            <option value="optionDataRegisto">Data de registo (ano-mês-dia)</option>
                         </select>
 
 
 
-                        <input type="search" class="form-control" placeholder="Pesquise...">
-                        <button type="submit" class="btn btn-outline-secondary">Pesquisar</button>
+                        <input type="search" id="input-search" class="form-control" placeholder="Pesquise...">
+
 
 
                     </form>
@@ -272,8 +273,13 @@ if (isset($_SESSION['usuario'])) {
                     <div class="modal-body">
                         <p>Escolha o que pretende fazer:</p>
                         <h3><i class="fas fa-angle-right"></i> Deseja editar dados pessoais do funcionário? :</h3>
-                        <label for="yesToEditPersonalDataFuncionario" class="form-label">Sim</label> <input type="radio" name="answerToEditPersonalDataFuncionario" id="yesToEditPersonalDataFuncionario">|
-                        <label for="noToEditPersonalDataFuncionario" class="form-label">Não</label> <input type="radio" name="answerToEditPersonalDataFuncionario" id="noToEditPersonalDataFuncionario">
+                        <?php if (($_SESSION['idRoleUser'] == 3) || ($_SESSION['idRoleUser'] == 4)) { ?>
+                            <label for="yesToEditPersonalDataFuncionario" class="form-label">Sim</label> <input type="radio" name="answerToEditPersonalDataFuncionario" id="yesToEditPersonalDataFuncionario" disabled>|
+                            <label for="noToEditPersonalDataFuncionario" class="form-label">Não</label> <input type="radio" name="answerToEditPersonalDataFuncionario" id="noToEditPersonalDataFuncionario" disabled>
+                        <?php } else { ?>
+                            <label for="yesToEditPersonalDataFuncionario" class="form-label">Sim</label> <input type="radio" name="answerToEditPersonalDataFuncionario" id="yesToEditPersonalDataFuncionario" disabled>|
+                            <label for="noToEditPersonalDataFuncionario" class="form-label">Não</label> <input type="radio" name="answerToEditPersonalDataFuncionario" id="noToEditPersonalDataFuncionario" disabled>
+                        <?php }; ?>
                         <section id="area-edicao-dados-pessoais-funcionario">
                             <form id="frmEdicaoFuncionario" class="row" method="POST">
                                 <div class="alert alert-danger alert-dismissible fade show error-fields-registo-funcionario" role="alert"><i class="fas fa-exclamation-triangle"></i> Preencha os campos que são obrigatórios
@@ -386,8 +392,13 @@ if (isset($_SESSION['usuario'])) {
                         </section>
                         <hr>
                         <h3><i class="fas fa-angle-right"></i> Deseja promover o funcionário? :</h3>
-                        <label for="yesToPromoveFuncionario" class="form-label">Sim<input type="radio" name="answerToPromoveFuncionario" id="yesToPromoveFuncionario"></label> |
-                        <label for="noToPromoveFuncionario" class="form-label">Não<input type="radio" name="answerToPromoveFuncionario" id="noToPromoveFuncionario"></label>
+                        <?php if ($_SESSION['idRoleUser'] == 3) { ?>
+                            <label for="yesToPromoveFuncionario" class="form-label">Sim<input disabled type="radio" name="answerToPromoveFuncionario" id="yesToPromoveFuncionario"></label> |
+                            <label for="noToPromoveFuncionario" class="form-label">Não<input disabled type="radio" name="answerToPromoveFuncionario" id="noToPromoveFuncionario"></label>
+                        <?php } else { ?>
+                            <label for="yesToPromoveFuncionario" class="form-label">Sim<input type="radio" name="answerToPromoveFuncionario" id="yesToPromoveFuncionario"></label> |
+                            <label for="noToPromoveFuncionario" class="form-label">Não<input type="radio" name="answerToPromoveFuncionario" id="noToPromoveFuncionario"></label>
+                        <?php }; ?>
                         <section id="area-promocao-funcionario">
                             <form id="frmPromocaoFuncionario">
 
@@ -423,8 +434,13 @@ if (isset($_SESSION['usuario'])) {
 
                         <hr>
                         <h3><i class="fas fa-angle-right"></i> Deseja progredir o funcionário? :</h3>
-                        <label for="yesToProgredeFuncionario" class="form-label">Sim<input type="radio" name="answerToProgredeFuncionario" id="yesToProgredeFuncionario"></label> |
-                        <label for="noToProgredeFuncionario" class="form-label">Não<input type="radio" name="answerToProgredeFuncionario" id="noToProgredeFuncionario"></label>
+                        <?php if ($_SESSION['idRoleUser'] == 3) { ?>
+                            <label for="yesToProgredeFuncionario" class="form-label">Sim<input type="radio" name="answerToProgredeFuncionario" id="yesToProgredeFuncionario" disabled></label> |
+                            <label for="noToProgredeFuncionario" class="form-label">Não<input type="radio" name="answerToProgredeFuncionario" id="noToProgredeFuncionario" disabled></label>
+                        <?php } else { ?>
+                            <label for="yesToProgredeFuncionario" class="form-label">Sim<input type="radio" name="answerToProgredeFuncionario" id="yesToProgredeFuncionario"></label> |
+                            <label for="noToProgredeFuncionario" class="form-label">Não<input type="radio" name="answerToProgredeFuncionario" id="noToProgredeFuncionario"></label>
+                        <?php }; ?>
                         <section id="area-progressao-funcionario">
                             <form id="frmProgressaoFuncionario">
 
@@ -464,8 +480,13 @@ if (isset($_SESSION['usuario'])) {
 
                         <hr>
                         <h3><i class="fas fa-angle-right"></i> Aposentar funcionário? :</h3>
-                        <label for="yesToAposentarFuncionario" class="form-label">Sim<input type="radio" name="answerToAposentarFuncionario" id="yesToAposentarFuncionario"></label> |
-                        <label for="noToAposentarFuncionario" class="form-label">Não<input type="radio" name="answerToAposentarFuncionario" id="noToAposentarFuncionario"></label>
+                        <?php if ($_SESSION['idRoleUser'] == 4) { ?>
+                            <label for="yesToAposentarFuncionario" class="form-label">Sim<input type="radio" name="answerToAposentarFuncionario" id="yesToAposentarFuncionario" disabled></label> |
+                            <label for="noToAposentarFuncionario" class="form-label">Não<input type="radio" name="answerToAposentarFuncionario" id="noToAposentarFuncionario" disabled></label>
+                        <?php } else { ?>
+                            <label for="yesToAposentarFuncionario" class="form-label">Sim<input type="radio" name="answerToAposentarFuncionario" id="yesToAposentarFuncionario"></label> |
+                            <label for="noToAposentarFuncionario" class="form-label">Não<input type="radio" name="answerToAposentarFuncionario" id="noToAposentarFuncionario"></label>
+                        <?php }; ?>
                         <section id="area-aposentar-funcionario">
 
 
@@ -648,11 +669,165 @@ if (isset($_SESSION['usuario'])) {
                 $('#tabelaFuncionariosLoad').load('./funcionarios/tabelaFuncionarios.php');
 
 
+
+
+                $('#itemsPesquisa').on('change', function() {
+
+                    if ($('#itemsPesquisa option').filter(':selected').val() == "optionCodigoRegisto") {
+
+                        $('#input-search').on('keyup', function() {
+                            var value = $(this).val();
+
+                            $('table tr').each(function(result) {
+                                if (result != 0) {
+                                    var id = $(this).children("td").eq(0).text();
+                                    if (id.indexOf(value) !== 0 && id.toLowerCase().indexOf(value.toLowerCase()) < 0) {
+                                        $(this).hide();
+                                    } else {
+                                        $(this).show();
+                                    };
+                                }
+                            })
+                        });
+                    } else if ($('#itemsPesquisa option').filter(':selected').val() == "optionNomeFuncionario") {
+                        $('#input-search').on('keyup', function() {
+                            var value = $(this).val();
+
+                            $('table tr').each(function(result) {
+                                if (result != 0) {
+                                    var id = $(this).children("td").eq(1).text();
+                                    if (id.indexOf(value) !== 0 && id.toLowerCase().indexOf(value.toLowerCase()) < 0) {
+                                        $(this).hide();
+                                    } else {
+                                        $(this).show();
+                                    };
+                                }
+                            })
+                        });
+                    } else if ($('#itemsPesquisa option').filter(':selected').val() == "optionCargo") {
+                        $('#input-search').on('keyup', function() {
+                            var value = $(this).val();
+
+                            $('table tr').each(function(result) {
+                                if (result != 0) {
+                                    var id = $(this).children("td").eq(2).text();
+                                    if (id.indexOf(value) !== 0 && id.toLowerCase().indexOf(value.toLowerCase()) < 0) {
+                                        $(this).hide();
+                                    } else {
+                                        $(this).show();
+                                    };
+                                }
+                            })
+                        });
+                    } else if ($('#itemsPesquisa option').filter(':selected').val() == "optionEscalao") {
+                        $('#input-search').on('keyup', function() {
+                            var value = $(this).val();
+
+                            $('table tr').each(function(result) {
+                                if (result != 0) {
+                                    var id = $(this).children("td").eq(3).text();
+                                    if (id.indexOf(value) !== 0 && id.toLowerCase().indexOf(value.toLowerCase()) < 0) {
+                                        $(this).hide();
+                                    } else {
+                                        $(this).show();
+                                    };
+                                }
+                            })
+                        });
+                    } else if ($('#itemsPesquisa option').filter(':selected').val() == "optionClasse") {
+                        $('#input-search').on('keyup', function() {
+                            var value = $(this).val();
+
+                            $('table tr').each(function(result) {
+                                if (result != 0) {
+                                    var id = $(this).children("td").eq(4).text();
+                                    if (id.indexOf(value) !== 0 && id.toLowerCase().indexOf(value.toLowerCase()) < 0) {
+                                        $(this).hide();
+                                    } else {
+                                        $(this).show();
+                                    };
+                                }
+                            })
+                        });
+                    } else if ($('#itemsPesquisa option').filter(':selected').val() == "optionAnosServico") {
+                        $('#input-search').on('keyup', function() {
+                            var value = $(this).val();
+
+                            $('table tr').each(function(result) {
+                                if (result != 0) {
+                                    var id = $(this).children("td").eq(5).text();
+                                    if (id.indexOf(value) !== 0 && id.toLowerCase().indexOf(value.toLowerCase()) < 0) {
+                                        $(this).hide();
+                                    } else {
+                                        $(this).show();
+                                    };
+                                }
+                            })
+                        });
+                    } else if ($('#itemsPesquisa option').filter(':selected').val() == "optionIdade") {
+                        $('#input-search').on('keyup', function() {
+                            var value = $(this).val();
+
+                            $('table tr').each(function(result) {
+                                if (result != 0) {
+                                    var id = $(this).children("td").eq(6).text();
+                                    if (id.indexOf(value) !== 0 && id.toLowerCase().indexOf(value.toLowerCase()) < 0) {
+                                        $(this).hide();
+                                    } else {
+                                        $(this).show();
+                                    };
+                                }
+                            })
+                        });
+                    } else if ($('#itemsPesquisa option').filter(':selected').val() == "optionDepartamento") {
+                        $('#input-search').on('keyup', function() {
+                            var value = $(this).val();
+
+                            $('table tr').each(function(result) {
+                                if (result != 0) {
+                                    var id = $(this).children("td").eq(7).text();
+                                    if (id.indexOf(value) !== 0 && id.toLowerCase().indexOf(value.toLowerCase()) < 0) {
+                                        $(this).hide();
+                                    } else {
+                                        $(this).show();
+                                    };
+                                }
+                            })
+                        });
+                    } else if ($('#itemsPesquisa option').filter(':selected').val() == "optionDataRegisto") {
+                        $('#input-search').on('keyup', function() {
+                            var value = $(this).val();
+
+                            $('table tr').each(function(result) {
+                                if (result != 0) {
+                                    var id = $(this).children("td").eq(8).text();
+                                    if (id.indexOf(value) !== 0 && id.toLowerCase().indexOf(value.toLowerCase()) < 0) {
+                                        $(this).hide();
+                                    } else {
+                                        $(this).show();
+                                    };
+                                }
+                            })
+                        });
+                    };
+
+
+
+                });
+
+
+
                 $('#yesToEditPersonalDataFuncionario').on('change', function() {
                     if ($(this).prop("checked") == true) {
                         setTimeout(function() {
                             $('#area-edicao-dados-pessoais-funcionario').fadeIn('fast');
                         }, 150);
+                    }
+                });
+
+                $('#yesToEditPersonalDataFuncionario').on('click', function() {
+                    if ($(this).prop("disabled") == true) {
+                        alert("clicou");
                     }
                 });
 

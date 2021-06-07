@@ -24,14 +24,24 @@ $resultadoPesquisaChefesDepartamentos = mysqli_query($conexao, $sqlPesquisaChefe
             <td><?php echo $dados[2]; ?></td>
             <td><?php echo $dados[1]; ?></td>
             <td><?php echo $dados[3]; ?></td>
+
+
+
             <td>
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEditarChefeDepartamento" onclick="recuperarDadosEdicaoChefiaDepartamento('<?php echo $dados[0]; ?>')">
-                    <i class="fas fa-pencil-alt"></i>
+
+                <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#modalMostrarDetalhesDepartamento" onclick="recuperarDadosDepartamentoDetalhados('<?php echo $dados[0]; ?>')">
+                    Detalhes
                 </button>
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalConfirmacaoExclusaoChefiaDepartamento" onclick="excluirChefiaDepartamento('<?php echo $dados[0]; ?>')">
-                    <i class="fas fa-trash"></i>
-                </button>
+                <?php if (($_SESSION['idRoleUser'] == 1) || ($_SESSION['idRoleUser'] == 2)) { ?>
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEditarChefeDepartamento" onclick="recuperarDadosEdicaoChefiaDepartamento('<?php echo $dados[0]; ?>')">
+                        <i class="fas fa-pencil-alt"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalConfirmacaoExclusaoChefiaDepartamento" onclick="excluirChefiaDepartamento('<?php echo $dados[0]; ?>')">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                <?php } ?>
             </td>
+
         </tr>
 
     <?php endwhile; ?>

@@ -1,5 +1,7 @@
 <?php
+session_start();
 ini_set('display_errors', 1);
+
 require_once "../../classes/conexao.php";
 
 $con = new Conexao();
@@ -46,9 +48,13 @@ $resultadoPesquisaFuncionarios = mysqli_query($conexao, $sqlPesquisaFuncionarios
                         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEdicaoFuncionario" onclick="recuperarDadosFuncionario('<?php echo $dadosPesquisaFuncionarios[0]; ?>')">
                             <i class="fas fa-pencil-alt"></i>
                         </button>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalConfirmacaoExclusaoFuncionario" onclick="excluirFuncionario('<?php echo $dadosPesquisaFuncionarios[0]; ?>')">
-                            <i class="fas fa-trash"></i>
-                        </button>
+
+                        <?php if (($_SESSION['idRoleUser'] == 1)) { ?>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalConfirmacaoExclusaoFuncionario" onclick="excluirFuncionario('<?php echo $dadosPesquisaFuncionarios[0]; ?>')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+
+                        <?php }; ?>
                     </td>
                 </tr>
             <?php
