@@ -35,9 +35,7 @@ $resultPesquisaProgressaoFuncionarios = mysqli_query($conexao, $sqlPesquisaProgr
                         <td><?php echo $dadosPesquisaProgressaoFuncionario[3]; ?></td>
                         <td><?php echo $dadosPesquisaProgressaoFuncionario[4]; ?></td>
                         <td><?php echo $dadosPesquisaProgressaoFuncionario[5]; ?></td>
-                        <td>
-                         
-                        </td>
+                        
                     </tr>
             <?php endwhile;
             } else {
