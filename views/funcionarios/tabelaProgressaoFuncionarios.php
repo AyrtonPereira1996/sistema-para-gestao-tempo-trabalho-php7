@@ -20,7 +20,7 @@ $resultPesquisaProgressaoFuncionarios = mysqli_query($conexao, $sqlPesquisaProgr
                 <th>Escalão antigo</th>
                 <th>Escalão actual</th>
                 <th>Data da progressão</th>
-                <th>Acções</th>
+                
             </tr>
         </thead>
 
@@ -36,9 +36,7 @@ $resultPesquisaProgressaoFuncionarios = mysqli_query($conexao, $sqlPesquisaProgr
                         <td><?php echo $dadosPesquisaProgressaoFuncionario[4]; ?></td>
                         <td><?php echo $dadosPesquisaProgressaoFuncionario[5]; ?></td>
                         <td>
-                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="" onclick="">
-                                Detalhes
-                            </button>
+                         
                         </td>
                     </tr>
             <?php endwhile;

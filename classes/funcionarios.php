@@ -107,7 +107,7 @@ class Funcionarios
         $conexao = $con->conectar();
 
         $sql = "UPDATE funcionarios set classeFuncionario = '$dados[1]' where idFuncionario = '$dados[0]'";
-        
+
 
         return mysqli_query($conexao, $sql);
     }
@@ -119,7 +119,7 @@ class Funcionarios
         $conexao = $con->conectar();
 
         $sql = "UPDATE funcionarios set escalaoFuncionario = '$dados[1]' where idFuncionario = '$dados[0]'";
-        
+
 
         return mysqli_query($conexao, $sql);
     }
@@ -133,5 +133,14 @@ class Funcionarios
         $sql = "UPDATE funcionarios set isAposentado = '$dados[1]' WHERE idFuncionario = '$dados[0]'";
 
         return mysqli_query($conexao, $sql);
+    }
+
+    // FUNCAO OBTENCAO DE RELATORIO DE ANUAL DE PROGRESSOES
+    public function obterRelatorioAnualProgressoes($dados)
+    {
+        $con = new Conexao();
+        $conexao = $con->conectar();
+
+        
     }
 }

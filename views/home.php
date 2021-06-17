@@ -65,7 +65,7 @@ if (isset($_SESSION['usuario'])) {
                                 <?php echo $numeroTotalFuncionariosAposentados; ?>
                             </span>
                             <span class="card-text">Aposentados</span><br>
-                            <a class="card-link" href="">Visualizar</a>
+                            <a class="card-link" href="./funcionariosAposentados.php">Visualizar</a>
                         </div>
                     </div>
                 </div>
@@ -75,7 +75,7 @@ if (isset($_SESSION['usuario'])) {
                             <h2 class="card-title">Total de progressões</h2>
                             <span class="card-text card-number"> <?php echo $numeroTotalFuncionariosProgressao; ?></span>
                             <span class="card-text">Funcionários</span><br>
-                            <a class="card-link">Visualizar</a>
+                            <a class="card-link" href="./progressaoFuncionarios.php">Visualizar</a>
                         </div>
                     </div>
                 </div>
@@ -85,7 +85,7 @@ if (isset($_SESSION['usuario'])) {
                             <h2 class="card-title">Total de promoções</h2>
                             <span class="card-text card-number"><?php echo $numeroTotalFuncionariosPromocao; ?></span>
                             <span class="card-text">Funcionários</span><br>
-                            <a class="card-link">Visualizar</a>
+                            <a class="card-link" href="./promocaoFuncionarios.php">Visualizar</a>
                         </div>
                     </div>
                 </div>

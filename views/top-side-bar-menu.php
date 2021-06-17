@@ -33,7 +33,8 @@ $conexao = $con->conectar();
                         if (($_SESSION['idRoleUser'] == 1) || ($_SESSION['idRoleUser'] == 2)) { ?>
                             <div class="submenu-item"><a href="./usuarios.php">Gestão usuários</a></div>
                         <?php } ?>
-                        <div class="submenu-item"><a href="">Ajuda</a></div>
+                        <div class="submenu-item"><a href="./relatorios.php">Gestão de relatórios</a></div>
+                        <div class="submenu-item"><a href="#">Ajuda</a></div>
                         <div class="submenu-item"><a href="../procedimentos/login/logout.php">Terminar sessão</a></div>
 
                     </div>

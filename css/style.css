@@ -223,7 +223,7 @@ form#login-form .errors-fields {
   top: 45px;
   right: -10px;
   background-color: #d6d6d6;
-  width: 150px;
+  width: 160px;
   padding: 10px 0;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
   border-radius: 3px;
@@ -296,9 +296,8 @@ form#login-form .errors-fields {
 }
 
 .sidebar .user-data .user-name {
-color:#f9686f !important;
+  color: #f9686f !important;
 }
-
 
 .sidebar .user-data p.username {
   font-size: 0.75em;
@@ -366,7 +365,7 @@ body.active .top-navbar .hamburguer .hamburguer-inner div.two {
   width: 30px !important;
 }
 
-body.active .sidebar .user-data .user-name{
+body.active .sidebar .user-data .user-name {
   display: block !important;
 }
 
@@ -377,11 +376,11 @@ body.active .sidebar .user-data .user-name{
   font-weight: bold;
 }
 
-.form-label span{
+.form-label span {
   font-weight: normal !important;
 }
 
-.label-details-items{
+.label-details-items {
   margin-left: ;
 }
 
@@ -400,7 +399,6 @@ button.form-btn {
   top: 33px;
 }
 
-
 button#btnEditarUsuario {
   margin-top: 10px;
 }
@@ -411,8 +409,9 @@ section#area-promocao-funcionario,
 section#area-progressao-funcionario,
 section#area-edicao-user-role,
 section#area-aposentar-funcionario,
-section#area-edicao-chefe-departamento
-{
+section#area-edicao-chefe-departamento,
+section#area-relatorio-para-aposentacao,
+section#area-relatorio-aposentacao-anual {
   display: none;
 }
 
@@ -517,7 +516,7 @@ table.table th {
   border: none !important;
 }
 
-.modal-body h3 {
+.modal-body h3, .accordion h3 {
   font-weight: bold;
   margin-bottom: 12px;
 }
@@ -596,7 +595,7 @@ table tbody button.btn-link:focus {
   font-size: 1em !important;
 }
 
-form.frm-pesquisa{
+form.frm-pesquisa {
   width: calc(287px - 262px);
   margin-left: 262px;
   display: flex;
@@ -624,9 +623,24 @@ body.active .frm-pesquisa {
   margin-right: 10px;
 }
 
-.form-check-inline{
+.form-check-inline {
   display: flex !important;
   align-items: center !important;
 }
 
+.accordion {
+  padding: 10px;
+}
 
+h2.accordion-header .svg-inline--fa {
+  color: #06001a !important;
+}
+
+.accordion button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.accordion .btn-success {
+  margin: 20px 0px;
+}

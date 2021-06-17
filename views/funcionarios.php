@@ -31,12 +31,14 @@ if (isset($_SESSION['usuario'])) {
         <main class="container-fluid">
             <section>
                 <h1>Registos de funcionários</h1>
-                <div class="row">
+                <div class="row row-options">
+
                     <?php if (($_SESSION['idRoleUser'] == 1) || ($_SESSION['idRoleUser'] == 2)) { ?>
                         <span class="simple-label"><button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalRegistoFuncionario">Registar novo funcionário<i class="fas fa-plus-circle fa-fw fa-lg text-success"></i></button></span>
                     <?php }; ?>
-                    <form id="frmPesquisaFuncionario" class="frm-pesquisa">
 
+                    <form id="frmPesquisaFuncionario" class="frm-pesquisa">
+                      
 
                         <span>Pesquisa:</span>
 
@@ -61,6 +63,8 @@ if (isset($_SESSION['usuario'])) {
 
 
                     </form>
+
+
 
                 </div>
 

@@ -18,7 +18,7 @@ $resultPesquisaFuncionariosAposentados = mysqli_query($conexao, $sqlPesquisaFunc
                 <th>Anos de carreira</th>
                 <th>Data inicio carreira</th>
                 <th>Data de aposentação</th>
-                <th>Ações</th>
+                
             </tr>
         </thead>
 
@@ -31,11 +31,7 @@ $resultPesquisaFuncionariosAposentados = mysqli_query($conexao, $sqlPesquisaFunc
                     <td><?php echo ($dadosPesquisaFuncionariosAposentados[3] - $dadosPesquisaFuncionariosAposentados[2]); ?></td>
                     <td><?php echo $dadosPesquisaFuncionariosAposentados[4]; ?></td>
                     <td><?php echo $dadosPesquisaFuncionariosAposentados[5]; ?></td>
-                    <td>
-                        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="" onclick="">
-                            Detalhes
-                        </button>
-                    </td>
+                    
                 </tr>
             <?php endwhile; ?>
         </tbody>

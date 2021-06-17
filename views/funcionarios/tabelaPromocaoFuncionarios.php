@@ -20,7 +20,7 @@ $resultPesquisaPromocaoFuncionarios = mysqli_query($conexao, $sqlPesquisaPromoca
                 <th>Classe antigo</th>
                 <th>Classe actual</th>
                 <th>Data da promoção</th>
-                <th>Acções</th>
+                
             </tr>
         </thead>
 
@@ -34,11 +34,7 @@ $resultPesquisaPromocaoFuncionarios = mysqli_query($conexao, $sqlPesquisaPromoca
                         <td><?php echo $dadosPesquisaPromocaoFuncionarios[3];  ?></td>
                         <td><?php echo $dadosPesquisaPromocaoFuncionarios[4];  ?></td>
                         <td><?php echo $dadosPesquisaPromocaoFuncionarios[5];  ?></td>
-                        <td>
-                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="" onclick="">
-                                Detalhes
-                            </button>
-                        </td>
+                      
                     </tr>
             <?php endwhile;
             } else {
