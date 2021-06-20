@@ -3,7 +3,7 @@
 class Funcionarios
 {
 
-    // FUNCAO PARA PERSISTENCIA DE DADOS DOS FUNCIONARIO
+    // FUNCAO PARA INSERÇÃO DE DADOS DOS FUNCIONARIO
     public function adicionarFuncionario($dados)
     {
         $con = new Conexao();
@@ -24,7 +24,7 @@ class Funcionarios
         echo mysqli_query($conexao, $sql);
     }
 
-    // FUNCAO PARA RECUPERAR DADOS DE USUARIO PARA PREVIZUALIZAO 
+    // FUNCAO PARA RECUPERAR DADOS DE USUARIO 
     public function recuperarDadosFuncionario($idFuncionario)
     {
         $con = new Conexao();
@@ -112,7 +112,7 @@ class Funcionarios
         return mysqli_query($conexao, $sql);
     }
 
-    // FUNCAO PARA PROGREDIR DADOS DE FUNCIONARIO
+    // FUNCAO PARA PROGREDIR FUNCIONARIO
     public function progredirFuncionario($dados)
     {
         $con = new Conexao();
@@ -124,7 +124,7 @@ class Funcionarios
         return mysqli_query($conexao, $sql);
     }
 
-    // FUNCAO PARA APOSENTAR DADOS DE FUNCIONARIO
+    // FUNCAO PARA APOSENTAR FUNCIONARIO
     public function aposentarFuncionario($dados)
     {
         $con = new Conexao();
@@ -135,12 +135,5 @@ class Funcionarios
         return mysqli_query($conexao, $sql);
     }
 
-    // FUNCAO OBTENCAO DE RELATORIO DE ANUAL DE PROGRESSOES
-    public function obterRelatorioAnualProgressoes($dados)
-    {
-        $con = new Conexao();
-        $conexao = $con->conectar();
-
-        
-    }
+ 
 }

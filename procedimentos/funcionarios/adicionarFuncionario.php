@@ -3,7 +3,10 @@ ini_set('display_errors', 1);
 require_once "../../classes/conexao.php";
 require_once "../../classes/funcionarios.php";
 
+// INSTÂNCIA Da CLASSE DE FUNCIONARIOS
 $obj = new Funcionarios();
+
+// VARIÁVEIS COM VALORES VINDOS DO FORMULARIO
 $nomeFuncionario = $_POST['txtNomeFuncionario'];
 $dataNascimentoFormulario = $_POST['txtDate'];
 $nuit = $_POST['txtNUIT'];

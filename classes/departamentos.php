@@ -2,8 +2,7 @@
 
 class Departamentos
 {
-    // INSERCAO DE NOVO DEPARTAMENTO
-
+    // FUNÇÃO PARA A INSERCAO DE NOVO DEPARTAMENTO
     public function adicionarDepartamento($dados)
     {
         $con = new Conexao();
@@ -14,8 +13,7 @@ class Departamentos
         return mysqli_query($conexao, $sql);
     }
 
-    // EXCLUSAO DE REGISTO DE DEPARTAMENTO
-
+    // FUNÇÃO PARA  EXCLUSAO DE REGISTO DE DEPARTAMENTO
     public function excluirDepartamento($idDepartamento)
     {
         $con = new Conexao();
@@ -26,8 +24,7 @@ class Departamentos
         echo mysqli_query($conexao, $sql);
     }
 
-    // RECUPERACAO DE DADOS PARA EDICAO DE REGISTO DE DEPARTAMENTO
-
+    // FUNÇÃO PARA A RECUPERACAO DE DADOS PARA EDICAO DE REGISTO DE DEPARTAMENTO
     public function recuperarDadosEdicaoDepartamento($idDepartamento)
     {
         $con = new Conexao();
@@ -46,7 +43,8 @@ class Departamentos
         return $dados;
     }
 
-    public function recuperarDadosDepartamentoDetalhados($idDepartamento){
+      // FUNÇÃO PARA A RECUPERACAO DE DADOS DETALHADOS DO DEPARTAMENTO
+    public function recuperarDadosDepartamentoDetalhados($idDepartamento) {
         $con = new Conexao();
         $conexao = $con->conectar();
 
@@ -65,8 +63,7 @@ class Departamentos
         return $dados;
     }
 
-    // EDICAO DE REGISTO DE DEPARTAMENTO
-     
+    // FUNÇÃO PARA EDICAO DE REGISTO DE DEPARTAMENTO
     public function editarDepartamento($dados){
         $con = new Conexao();
         $conexao = $con->conectar();
@@ -75,8 +72,7 @@ class Departamentos
         return mysqli_query($conexao, $sql);
     }
 
-    // EXCLUSAO DE REGISTO DEPARTAMENTO ASSOCIADO A UM DEPARTAMENTO
-
+    // FUNÇÃO PARA EXCLUSAO DE REGISTO DEPARTAMENTO ASSOCIADO A UM DEPARTAMENTO
     public function adicionarChefeDepartamento($dados){
         $con = new Conexao();
         $conexao = $con->conectar();
@@ -85,7 +81,7 @@ class Departamentos
         return mysqli_query($conexao, $sql);
     }
 
-    // EXCLUSAO DE DEPARTAMENTO ASSOCIADO A UM CHEFIA
+    // FUNÇÃO PARA EXCLUSAO DE DEPARTAMENTO ASSOCIADO A UM CHEFIA
     public function excluirChefeDepartamento($idChefiaDepartamento) {
         $con = new Conexao();
         $conexao = $con->conectar();
@@ -96,8 +92,7 @@ class Departamentos
     }
 
 
-     // RECUPERAR DADOS PARA A EDICAO DE CARGO DE CHEFIA DE DEPARTAMENTO
-    
+     // FUNÇÃO PARA RECUPERAR DADOS PARA A EDICAO DE CARGO DE CHEFIA DE DEPARTAMENTO 
     public function recuperarDadosEdicaoChefiaDepartamento($idChefiaDepartamento) {
         $con = new Conexao();
         $conexao = $con->conectar();
@@ -116,7 +111,7 @@ class Departamentos
         return $dados;       
     }
 
-     // EDICAO DE CARGO DE CHEFIA DE DEPARTAMENTO
+     // FUNÇÃO PARA EDICAO DE CARGO DE CHEFIA DE DEPARTAMENTO
      public function editarChefiaDepartamento($dados){
          $con = new Conexao();
          $conexao = $con -> conectar();

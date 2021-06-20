@@ -2,7 +2,7 @@
 
 class Usuarios
 {
-
+    // FUNÇÃO PARA A INSERCAO DE NOVO USUÁRIO
     public function adicionarUsuario($dados)
     {
         $con = new Conexao();
@@ -13,6 +13,7 @@ class Usuarios
         return mysqli_query($conexao, $sql);
     }
 
+    // FUNÇÃO PARA EFECTUAR NOVO LOGIN
     public function efectuarLogin($dados)
     {
         $con = new Conexao();
@@ -36,6 +37,7 @@ class Usuarios
         };
     }
 
+    // FUNÇÃO PARA O RETORNO DO ID DO USUÁRIO
     public function obterIdUsuario($dados)
     {
         $con = new Conexao();
@@ -49,6 +51,7 @@ class Usuarios
         return mysqli_fetch_row($result)[0];
     }
 
+    // FUNÇÃO PARA OBTER O NOME DE USUÁRIO
     public function obterNomeUsuario($idUsuario)
     {
         $con = new Conexao();
@@ -60,6 +63,7 @@ class Usuarios
         return mysqli_fetch_row($result)[0];
     }
 
+    // FUNÇÃO PARA OBTER O ID DO TIPO DE USUARIO
     public function obterIdRoleUser($idUsuario) {
         $con = new Conexao();
         $conexao = $con->conectar();
@@ -70,6 +74,7 @@ class Usuarios
         return mysqli_fetch_row($result)[0];
     }
 
+    // FUNÇÃO PARA EXCLUIR USUÁRIO
     public function excluirUsuario($idUsuario)
     {
         $con = new Conexao();
@@ -79,6 +84,7 @@ class Usuarios
         echo mysqli_query($conexao, $sql);
     }
 
+    // FUNÇÃO PARA RECUPERAR DADOS DO USUARIOS PARA EDICAO
     public function recuperarDadosEdicaoUsuario($idUsuario)
     {
         $con = new Conexao();
@@ -100,6 +106,7 @@ class Usuarios
         return $dados;
     }
 
+    // FUNÇÃO PARA RECUPERAR DADOS DETALHADOS DO USUÁRIO
     public function recuperarDadosDetalhadosUsuario($idUsuario)
     {
         $con = new Conexao();
@@ -123,7 +130,7 @@ class Usuarios
         return $dados;
     }
 
-
+    // FUNÇÃO PARA EDITAR USUARIOS
     public function editarUsuario($dados)
     {
         $con = new Conexao();
