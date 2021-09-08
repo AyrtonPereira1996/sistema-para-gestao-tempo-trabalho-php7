@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once "../../classes/conexao.php";
 
 $con = new Conexao();
@@ -27,7 +28,7 @@ $resultadoPesquisaDepartamentos = mysqli_query($conexao, $sqlPesquisarDepartamen
                 <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#modalMostrarDetalhesDepartamento" onclick="recuperarDadosDepartamentoDetalhados('<?php echo $dados[0]; ?>')">
                     Detalhes
                 </button>
-                <?php if (($_SESSION['idRoleUser'] == 1) || ($_SESSION['idRoleUser'] == 2)) { ?>
+                <?php if (($_SESSION['idRoleUser'] == 1)) { ?>
                     <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEdicaoDepartamento" onclick="recuperarDadosEdicaoDepartamento('<?php echo $dados[0]; ?>')">
                         <i class="fas fa-pencil-alt"></i>
                     </button>

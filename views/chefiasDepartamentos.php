@@ -32,7 +32,9 @@ if (isset($_SESSION['usuario'])) {
         <main class="container-fluid">
             <section>
                 <h1>Registos de chefes de departamentos</h1>
-
+                <?php 
+                    echo ($_SESSION['idRoleUser']);
+                ?>
                 <div class="row">
                     <div class="group-labels text-right">
                         <a href="./departamentos.php"><span class="btn btn-link simple-label">Consultar/registar departamentos<spa data-bs-toggle="modal"></span></a>

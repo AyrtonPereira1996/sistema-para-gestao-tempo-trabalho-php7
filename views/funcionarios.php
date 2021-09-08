@@ -198,9 +198,9 @@ if (isset($_SESSION['usuario'])) {
                                 <label for="txtClasse" class="form-label">Classe</label>
                                 <select id="txtClasse" name="txtClasse" class="form-select">
                                     <option selected>Escolha a classe</option>
-                                    <option value="A">A</option>
-                                    <option value="B">B</option>
                                     <option value="C">C</option>
+                                    <option value="B">B</option>
+                                    <option value="A">A</option>
                                 </select>
 
 
@@ -281,8 +281,8 @@ if (isset($_SESSION['usuario'])) {
                             <label for="yesToEditPersonalDataFuncionario" class="form-label">Sim</label> <input type="radio" name="answerToEditPersonalDataFuncionario" id="yesToEditPersonalDataFuncionario" disabled>|
                             <label for="noToEditPersonalDataFuncionario" class="form-label">Não</label> <input type="radio" name="answerToEditPersonalDataFuncionario" id="noToEditPersonalDataFuncionario" disabled>
                         <?php } else { ?>
-                            <label for="yesToEditPersonalDataFuncionario" class="form-label">Sim</label> <input type="radio" name="answerToEditPersonalDataFuncionario" id="yesToEditPersonalDataFuncionario" disabled>|
-                            <label for="noToEditPersonalDataFuncionario" class="form-label">Não</label> <input type="radio" name="answerToEditPersonalDataFuncionario" id="noToEditPersonalDataFuncionario" disabled>
+                            <label for="yesToEditPersonalDataFuncionario" class="form-label">Sim</label> <input type="radio" name="answerToEditPersonalDataFuncionario" id="yesToEditPersonalDataFuncionario">|
+                            <label for="noToEditPersonalDataFuncionario" class="form-label">Não</label> <input type="radio" name="answerToEditPersonalDataFuncionario" id="noToEditPersonalDataFuncionario">
                         <?php }; ?>
                         <section id="area-edicao-dados-pessoais-funcionario">
                             <form id="frmEdicaoFuncionario" class="row" method="POST">
@@ -417,9 +417,9 @@ if (isset($_SESSION['usuario'])) {
                                     <label for="txtClasseActualizacao" class="form-label">Escolha a nova classe do funcionário </label>
                                     <select id="txtClasseActualizacao" name="txtClasseActualizacao" class="form-select">
                                         <option value="">Escolha a nova classe</option>
-                                        <option value="A">A</option>
-                                        <option value="B">B</option>
                                         <option value="C">C</option>
+                                        <option value="B">B</option>
+                                        <option value="A">A</option>
                                     </select>
 
 
