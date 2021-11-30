@@ -3,10 +3,10 @@
 class Conexao {
 
     // VARIÁVEIS PRIVADAS PARA ACEDER A BD
-    private $servidor = "localhost";
-    private $usuario = "root";
-    private $senha = "123456";
-    private $bd = "sistema_sigetes";
+    private $servidor = "us-cdbr-east-04.cleardb.com";
+    private $usuario = "bb98ca2343e648";
+    private $senha = "d8c8a596";
+    private $bd = "heroku_820acf6dce6a2f3";
 
 
     // FUNÇÃO QUE ESTABELECE CONEXÃO COM A BD
